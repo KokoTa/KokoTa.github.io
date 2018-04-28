@@ -3,7 +3,6 @@ title: 03-HTTP
 date: 2017-09-26 01:07:07
 tags:
 	- 网络
-	- 笔记
 ---
 <img src="/images/index/03.jpg" />
 <!--more-->

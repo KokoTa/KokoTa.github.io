@@ -3,7 +3,6 @@ title: 01-盒模型与BFC
 date: 2017-09-23 15:28:45
 tags:
 	- HTML/CSS
-	- 笔记
 ---
 <img src="/images/index/01.jpg" />
 <!--more-->
