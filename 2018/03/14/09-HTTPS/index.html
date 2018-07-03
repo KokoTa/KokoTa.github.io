@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="网络," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="keywords" content="网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09-HTTPS">
+<meta property="og:url" content="/2018/03/14/09-HTTPS/index.html">
+<meta property="og:site_name" content="KokoTaの蜡像屋">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/images/index/09.jpg">
+<meta property="og:image" content="/images/数字证书.jpg">
+<meta property="og:image" content="/images/HTTPS流程.jpg">
+<meta property="og:updated_time" content="2018-05-09T10:19:35.096Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="09-HTTPS">
+<meta name="twitter:image" content="/images/index/09.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="/2018/03/14/09-HTTPS/"/>
+
+
+
+
+
+  <title>09-HTTPS | KokoTaの蜡像屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KokoTaの蜡像屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/2018/03/14/09-HTTPS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KokoTa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KokoTaの蜡像屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">09-HTTPS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T10:41:24+08:00">
+                2018-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/index/09.jpg"><br><a id="more"></a></p>
+<h1 id="日常唠叨"><a href="#日常唠叨" class="headerlink" title="日常唠叨"></a>日常唠叨</h1><p>自2017年12月被放出来实习，至今也快有三个月了，有时候我在思考，自己到底在干什么，自己到底想干什么。我没有得出一个结论，我想大部分刚出社会的小baby们应该是都同样的想法。前端开发工程师，一个熟悉又陌生的名词。熟悉，是因为我正在从事相关的工作；陌生，是因为前端这个大坑“永无止境”。学习总是能让人豁然开朗，但是鲁迅说过：“学习不复习，知识记不住，知识记不住，等于没学习。”回头看看自己写的博客，感受颇多。我总是暗示自己得做学习总结，但总是三天打鱼两天晒网…地计划，em…<br>工作使人增长经验，但似乎也仅限于此，许多的技术知识没法在工作中遇到，导致日积月累的记忆断层。果然，人就是人，不是电脑啊~~~  </p>
+<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>HTTP是什么？这个似乎不需要多说，它就是一个传输协议，位于应用层，一般用在web上。比如：浏览器给服务器发送信息，服务器回传响应，这个过程就需要用到HTTP和TCP/IP协议。<br>这个协议看似很OK，但其实隐藏了很多安全问题：</p>
+<ol>
+<li>通信使用的是明文，即内容是对外公开的，谁截到请求，谁就能看到请求的内容。</li>
+<li>通信时不验证身份，顾名思义，可能导致中间人攻击。</li>
+<li>无法验证报文完整性，即我寄给你一个包裹，但你拿到的包裹可能是被快递小哥哥掉包的包裹</li>
+</ol>
+<p>总体感觉就是“我在外面裸奔，裸奔的我，弱弱的我，我能被任何人按在地上摩擦”。</p>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>基于HTTP的弱点，广大人民群众想出了一个好方案来使HTTP安全化，后人称之为HTTPS。<br>HTTPS = HTTP + 加密 + 认证 + 完整性保护 = HTTP + SSL/TLS  </p>
+<h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><ol>
+<li>共享密钥加密：客户端和服务器用同一个密钥加密和解密信息，但这有一个大问题：如何把这个密钥传给没有密钥的一方？要是被中间人截取了，那这个加密就形同虚设了。</li>
+<li>公钥私钥加密：即两把密钥，公钥发给你(用于加密)，私钥留自己(用于解密)。公钥随便给，反正解密的权利在我手上，这样就解决了中间人问题，反正拿了公钥也解密不了信息。</li>
+<li>HTTPS的加密：因为公钥私钥的效率差，所以HTTPS采用了上面两者结合的方式。我用你发给我的公钥加密共享密钥 -&gt; 你用你的私钥解析拿到共享密钥 -&gt; 然后你处理了一下共享密钥 -&gt; 你用我给你的公钥加密共享密钥 -&gt; 我用我的私钥解析拿到共享密钥 -&gt; 我俩愉快的用共享密钥进行加密解密通信。</li>
+</ol>
+<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p>通过加密，安全问题就解决了吗？NONONO！这里还存在一个严重问题：你怎么知道我发给你的公钥是我的公钥呢？会不会是被别人截取后替换的公钥呢？<br>这个问题交给证书吧，它可以保证公钥的合法性。（然而还是不能完全保证）<br>证书类似公钥的身份证，由可信任的第三方公司（认证公司）颁发，使用证书的流程如图：<br><img src="/images/数字证书.jpg" alt="数字证书"></p>
+<h3 id="完整性保护"><a href="#完整性保护" class="headerlink" title="完整性保护"></a>完整性保护</h3><p>HTTPS情况下，应用层发送数据时会附加一种叫做MAC(Message Authentication Code)的报文摘要，可以查知报文是否被篡改，从而保证了报文完整性。</p>
+<h2 id="HTTPS通信流程"><a href="#HTTPS通信流程" class="headerlink" title="HTTPS通信流程"></a>HTTPS通信流程</h2><p><img src="/images/HTTPS流程.jpg" alt="HTPPS流程"></p>
+<ol>
+<li>客户端表示要开始SSL通信了，报文中包含指定的SSL版本和加密组件列表</li>
+<li>服务器表示OK，返回SSL版本和加密组件</li>
+<li>服务器发送公钥证书</li>
+<li>服务器通知客户端SSL第一次握手结束</li>
+<li>客户端生成pre-master secret(一串随机数)，利用取出的公钥加密后发送给服务端</li>
+<li>客户端提示服务端在此之后的通信采用pre-master secret密钥加密</li>
+<li>客户端发送包含连接至今全部报文的整体校验值，如果服务器解密成功，则握手成功</li>
+<li>行为和6同理</li>
+<li>行为和7同理</li>
+<li>SSL建立完成，开始进行HTTP请求</li>
+<li>HTTP响应</li>
+<li>客户端断开连接</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/07/08-JS的数据结构01/" rel="next" title="08-JS的数据结构01">
+                <i class="fa fa-chevron-left"></i> 08-JS的数据结构01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/16/10-cookie-session-token/" rel="prev" title="10-cookie/session/token">
+                10-cookie/session/token <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.jpg"
+              alt="KokoTa" />
+          
+            <p class="site-author-name" itemprop="name">KokoTa</p>
+            <p class="site-description motion-element" itemprop="description">随性地记述，懒散地放空</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/KokoTa" target="_blank" title="GitHub">
+                  GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/KokoTa_0" target="_blank" title="知乎">
+                  知乎</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日常唠叨"><span class="nav-number">1.</span> <span class="nav-text">日常唠叨</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP"><span class="nav-number">2.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-number">3.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加密"><span class="nav-number">3.0.1.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证书"><span class="nav-number">3.0.2.</span> <span class="nav-text">证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整性保护"><span class="nav-number">3.0.3.</span> <span class="nav-text">完整性保护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS通信流程"><span class="nav-number">3.1.</span> <span class="nav-text">HTTPS通信流程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KokoTa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

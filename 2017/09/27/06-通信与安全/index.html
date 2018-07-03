@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="网络," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="keywords" content="网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="06-通信与安全">
+<meta property="og:url" content="/2017/09/27/06-通信与安全/index.html">
+<meta property="og:site_name" content="KokoTaの蜡像屋">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/images/index/06.jpg">
+<meta property="og:image" content="/images/CSRF.jpg">
+<meta property="og:updated_time" content="2018-05-09T10:19:35.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="06-通信与安全">
+<meta name="twitter:image" content="/images/index/06.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="/2017/09/27/06-通信与安全/"/>
+
+
+
+
+
+  <title>06-通信与安全 | KokoTaの蜡像屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KokoTaの蜡像屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/2017/09/27/06-通信与安全/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KokoTa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KokoTaの蜡像屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">06-通信与安全</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T16:30:00+08:00">
+                2017-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/index/06.jpg"><br><a id="more"></a></p>
+<h1 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h1><p>我：笨蛋测试，笨蛋测试！<br>他：哔哔哔~，哔哔哔~<br>我：你这个是什么意思？<br>他：别BB~<br>我：哔哔哔~，哔哔哔~</p>
+<h2 id="同源策略与限制"><a href="#同源策略与限制" class="headerlink" title="同源策略与限制"></a>同源策略与限制</h2><ol>
+<li>源：协议+域名+端口，其中任何一项不同就是不同的源</li>
+<li>同源策略：一个源的文件不能操作另一个源的文件，如：  <ul>
+<li>Cookie、LocalStorage、IndexDB无法读取</li>
+<li>DOM无法获得</li>
+<li>Ajax请求不能发送</li>
+</ul>
+</li>
+</ol>
+<h2 id="前后端如何通信"><a href="#前后端如何通信" class="headerlink" title="前后端如何通信"></a>前后端如何通信</h2><ol>
+<li>Ajax(受同源限制)</li>
+<li>WebSocket(不受同源限制)</li>
+<li>CORS(受不受限制都可以)</li>
+</ol>
+<h2 id="如何创建Ajax"><a href="#如何创建Ajax" class="headerlink" title="如何创建Ajax"></a>如何创建Ajax</h2><p><a href="https://github.com/KokoTa/All-demo/blob/master/other/util.js" target="_blank" rel="external">Ajax/Jsonp</a></p>
+<h2 id="跨域通信的几种方式"><a href="#跨域通信的几种方式" class="headerlink" title="跨域通信的几种方式"></a>跨域通信的几种方式</h2><ol>
+<li>JSONP</li>
+<li><p>Hash</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 假设当前页面为A，A中利用iframe或frame嵌入了跨域的页面B，A包含B</span></div><div class="line"><span class="comment">// A中代码：</span></div><div class="line"><span class="keyword">var</span> B = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'iframe'</span>);</div><div class="line">B.src = B.src + <span class="string">'#'</span> + <span class="string">'data'</span>;</div><div class="line"><span class="comment">// B中代码：</span></div><div class="line"><span class="built_in">window</span>.onhashchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> data = <span class="built_in">window</span>.location.hash; <span class="comment">// 数据就在hash中</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>postMessage</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 假设页面A(http://A.com)向跨域的窗口B(http://B.com)发送信息</span></div><div class="line"><span class="comment">// A中代码：</span></div><div class="line">B的窗口引用.postMessage(<span class="string">'data'</span>, <span class="string">'http://B.com'</span>);</div><div class="line"><span class="comment">// B中代码：</span></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, functino(event) &#123;</div><div class="line">  <span class="built_in">console</span>.log(event.origin);</div><div class="line">  <span class="built_in">console</span>.log(event.source);</div><div class="line">  <span class="built_in">console</span>.log(event.data);</div><div class="line">&#125;, <span class="literal">false</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>WebSocket(Socket.io)<br><a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" target="_blank" rel="external">参考1</a><br><a href="http://blog.csdn.net/frank_good/article/details/50856585" target="_blank" rel="external">参考2</a></p>
+</li>
+<li>CORS(可以结合fetch使用)<br><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="external">参考</a>  </li>
+</ol>
+<p>额外链接：<br><a href="https://segmentfault.com/a/1190000006669043" target="_blank" rel="external">聊聊Ajax那些事</a><br><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="external">前端常见跨域解决方案</a></p>
+<h1 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h1><p>他：网站的安全性不可忽略。<br>我：是的，为了防止世界被破坏！<br>他：为了维护…不对！安全方面的知识不能落下！<br>我：(羞涩)<br>他：滚！</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>一般分为两类：</p>
+<ol>
+<li>CSRF</li>
+<li>XSS</li>
+</ol>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
+<li>概念：CSRF(Cross-site request forgery)，又称跨站请求伪造  </li>
+<li>攻击原理：如下图所示，首先我们登录了网站A，网站A认证之后返回cookie给用户。网站B是一个骗人网站，其中有一个诱导链接指向网站A(这个链接可能在链接尾部添加查询或者其他操作信息)，当点击链接跳转到网站A时会附带网站A的cookie，此时若cookie中存在登录状态，那么就能以用户身份进行一些违规操作。</li>
+<li>原因：网站A接口有漏洞；用户登录过网站A，登录信息保存在cookie里，在登录信息未失效前再次访问网站A会自动登录。</li>
+<li>防御措施：<ul>
+<li>接口设定要区分清晰：因为大部分的CSRF是GET请求，所以我们的接口可以设置为“GET接口只获取资源，POST等接口操作资源”，但CSRF可以伪造POST请求，因此还需要搭配以下方法进行优化。</li>
+<li>Token验证：发送请求时，如果是GET请求，就在地址后加上?token=xxxx，后端验证token合法性；如果是POST请求，就在表单中增加一个隐形input，值为token，提交时一起传给后端验证。  </li>
+<li>Referer验证：判断请求的页面是否是服务器下的页面，是的话可以直接访问，不是的话则进行拦截。  </li>
+<li>隐藏令牌：类似token，token从cookie中取出来放到HTTP的head中，CSRF无法操作cookie(token也可以存储在localStorage中)。<br><img src="/images/CSRF.jpg" alt="CSRF攻击原理"><br><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/09.1.md" target="_blank" rel="external">其他资料</a>  </li>
+</ul>
+</li>
+</ol>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><ol>
+<li>概念：XSS(cross-site scripting)，又称跨域脚本攻击，一般来说浏览器会自动拦截XSS脚本</li>
+<li>攻击原理：<ul>
+<li>反射型：发送请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回浏览器，最后浏览器解析执行XSS代码</li>
+<li>存储型：与反射型的区别仅在于，提交的代码会存储在服务器端，下次请求目标页面时不再提交XSS代码</li>
+</ul>
+</li>
+<li>原因：用户数据未处理；客户端服务端不验证</li>
+<li>防御措施： <ul>
+<li>编码：对用户输入的数据进行HTTP Entity编码</li>
+<li>过滤：移除用户上传的DOM属性，如onerror等；移除用户上传的Style节点、Script节点、Iframe节点等</li>
+<li>校正：避免直接对HTML Entity解码；使用DOM Parse转换，校正不配对的DOM标签<br>PS：过滤与校正用到的库可以使用<a href="https://github.com/mathiasbynens/he" target="_blank" rel="external">he</a>和<a href="https://github.com/blowsie/Pure-JavaScript-HTML5-Parser" target="_blank" rel="external">domParse</a></li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/27/05-类与继承/" rel="next" title="05-类与继承">
+                <i class="fa fa-chevron-left"></i> 05-类与继承
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/29/07-渲染-运行-性能-监控/" rel="prev" title="07-渲染/运行/性能/监控">
+                07-渲染/运行/性能/监控 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.jpg"
+              alt="KokoTa" />
+          
+            <p class="site-author-name" itemprop="name">KokoTa</p>
+            <p class="site-description motion-element" itemprop="description">随性地记述，懒散地放空</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/KokoTa" target="_blank" title="GitHub">
+                  GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/KokoTa_0" target="_blank" title="知乎">
+                  知乎</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通信"><span class="nav-number">1.</span> <span class="nav-text">通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同源策略与限制"><span class="nav-number">1.1.</span> <span class="nav-text">同源策略与限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前后端如何通信"><span class="nav-number">1.2.</span> <span class="nav-text">前后端如何通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何创建Ajax"><span class="nav-number">1.3.</span> <span class="nav-text">如何创建Ajax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域通信的几种方式"><span class="nav-number">1.4.</span> <span class="nav-text">跨域通信的几种方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全"><span class="nav-number">2.</span> <span class="nav-text">安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类"><span class="nav-number">2.1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF"><span class="nav-number">2.2.</span> <span class="nav-text">CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS"><span class="nav-number">2.3.</span> <span class="nav-text">XSS</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KokoTa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

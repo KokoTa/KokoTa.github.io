@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="网络," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="keywords" content="网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03-HTTP">
+<meta property="og:url" content="/2017/09/26/03-HTTP/index.html">
+<meta property="og:site_name" content="KokoTaの蜡像屋">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/images/index/03.jpg">
+<meta property="og:updated_time" content="2018-05-09T10:19:35.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="03-HTTP">
+<meta name="twitter:image" content="/images/index/03.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="/2017/09/26/03-HTTP/"/>
+
+
+
+
+
+  <title>03-HTTP | KokoTaの蜡像屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KokoTaの蜡像屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/2017/09/26/03-HTTP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KokoTa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KokoTaの蜡像屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">03-HTTP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T01:07:07+08:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/index/03.jpg"><br><a id="more"></a></p>
+<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>他：你懂不懂HTTP？<br>我：懂一点。<br>他：那你来说说看HTTP是什么。<br>我：一个协议。<br>他：然后呢？<br>我：四个字母组成。<br>他：你给我出去。  </p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>简单快速：URI资源固定</li>
+<li>灵活：一个协议可以传输不同类型文件</li>
+<li>无连接：不会保持持久化连接</li>
+<li>无状态：不会保持客户端和服务端的状态</li>
+</ol>
+<h2 id="报文组成"><a href="#报文组成" class="headerlink" title="报文组成"></a>报文组成</h2><ol>
+<li>请求报文：请求行(http方法/页面地址/协议/版本) + 请求头 + 空行 + 请求体</li>
+<li>响应报文：状态行(协议/版本/状态码/状态值) + 响应头 + 空行 + 响应体</li>
+</ol>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ol>
+<li>GET：获取</li>
+<li>POST：传输</li>
+<li>PUT：更新</li>
+<li>DELETE：删除</li>
+<li>HEAD：获得首部</li>
+</ol>
+<h2 id="GET与POST的区别"><a href="#GET与POST的区别" class="headerlink" title="GET与POST的区别"></a>GET与POST的区别</h2><ol>
+<li>前者回退无害，后者会再次提交请求</li>
+<li>前者产生的URL地址可以被收藏，后者不行</li>
+<li>前者请求会被浏览器主动缓存，后者需手动设置</li>
+<li>前者请求只能进行url编码，后者支持多种编码方式</li>
+<li>前者请求参数会被完整保留在浏览器历史纪录里，后者不会</li>
+<li>前者在url中传输的参数长度是有限制的，后者没有</li>
+<li>前者参数的数据类型只接受ASCⅡ字符，后者没有限制</li>
+<li>前者跟后者比起来不安全，因为参数直接暴露在url中</li>
+<li>前者参数通过url传递，后者放在请求体中</li>
+</ol>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><p>1xx：指示信息 - 请求已接收，继续处理<br>2xx：成功 - 请求已被成功接收<br>3xx：重定向 - 要完成请求必须进一步操作<br>4xx：客户端错误 - 请求有语法错误或请求无法实现<br>5xx：服务器错误 - 服务器未能实现合法的请求  </p>
+<h2 id="状态码示例"><a href="#状态码示例" class="headerlink" title="状态码示例"></a>状态码示例</h2><p>200 OK：客户端请求成功<br>206 Partial Content：客户端发送带有Range头的GET请求，服务器完成处理，客户端请求成功<br>301 Moved Permanently：请求页已转移至新url<br>302 Found：请求页已临时转移至新url<br>304 Not Modified：客户端有缓存并发送了条件性请求，服务器告诉客户端原来的缓存可以继续使用<br>400 Bad Request：客户端请求有语法错误，服务器无法理解<br>401 Unauthorized：请求未经授权，此状态码必须和WWW-Authenticate报头域一起使用<br>403 Forbidden：请求资源禁止访问<br>404 Not Found：请求资源不存在<br>500 Internal Server Error：服务器发生位置错误，原来的缓存可继续使用<br>503 Server Unavailable：请求未完成，服务器过载或宕机，一段时间后可能恢复正常</p>
+<h2 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h2><p>HTTP采用“请求-应答”模式，普通模式下每次“请求-应答”，客户端和服务器总要新建连接，完成后连接立即断开。但当使用Keep-Alive模式(又称持久连接，协议1.1支持)时，连接就会持续有效，避免了建立或重新建立连接。</p>
+<h2 id="管线化"><a href="#管线化" class="headerlink" title="管线化"></a>管线化</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ol>
+<li>管线化通过持久连接完成，仅HTTP/1.1支持</li>
+<li>只有GET和HEAD可以管线化，POST有所限制</li>
+<li>初次连接不应启动管线机制，因为服务器不一定支持HTTP/1.1</li>
+<li>管线化不影响响应的顺序</li>
+<li>HTTP/1.1要求服务端支持管线化，但不要求服务端对响应进行管线化处理，只要求对于管线化的请求不失败</li>
+<li>由5可知开启管线化可能不会带来大幅度的性能提升，而且很多服务端和代理程序对管线化的支持并不好，因此现代浏览器如Chrome和Firefox默认不开启管线化支持</li>
+</ol>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>在使用持久连接的情况下<br>正常流程：<br>请求1 -&gt; 响应1 -&gt; 请求2 -&gt; 响应2 -&gt; 请求3 -&gt; 响应3<br>管线化后(大白话就是“打包”)：<br>请求1 -&gt; 请求2 -&gt; 请求3 -&gt; 响应1 -&gt; 响应2 -&gt; 响应3  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/24/02-事件/" rel="next" title="02-事件">
+                <i class="fa fa-chevron-left"></i> 02-事件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/26/04-原型/" rel="prev" title="04-原型">
+                04-原型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.jpg"
+              alt="KokoTa" />
+          
+            <p class="site-author-name" itemprop="name">KokoTa</p>
+            <p class="site-description motion-element" itemprop="description">随性地记述，懒散地放空</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/KokoTa" target="_blank" title="GitHub">
+                  GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/KokoTa_0" target="_blank" title="知乎">
+                  知乎</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP"><span class="nav-number">1.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#报文组成"><span class="nav-number">1.2.</span> <span class="nav-text">报文组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">1.3.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET与POST的区别"><span class="nav-number">1.4.</span> <span class="nav-text">GET与POST的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态码"><span class="nav-number">1.5.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态码示例"><span class="nav-number">1.6.</span> <span class="nav-text">状态码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久连接"><span class="nav-number">1.7.</span> <span class="nav-text">持久连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管线化"><span class="nav-number">1.8.</span> <span class="nav-text">管线化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.8.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.8.2.</span> <span class="nav-text">流程</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KokoTa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
