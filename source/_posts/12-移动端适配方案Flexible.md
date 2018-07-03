@@ -66,7 +66,7 @@ dpr = 1 时，字号16px；dpr = 2 时，字号16px * 2。
 而 Flexible 方案，就是利用计算出的相应根元素字号和相应viewport放大倍数，配合 rem，来完成移动端适配。  
 
 # Flexible方案
-首先我们创建 html 模板并引入 flexible 库：
+我们创建 html 模板并引入 flexible 库：
 ```html
 <!DOCTYPE html>
 <html lang="en"> 
@@ -90,8 +90,7 @@ dpr = 1 时，字号16px；dpr = 2 时，字号16px * 2。
 2. 给`<html>`元素添加`data-dpr`属性，并且动态改写`data-dpr`的值
 3. 给`<html>`元素添加`font-size`属性，并且动态改写`font-size`的值
 
-这里我们来说说第一点。  
-首先我们要知道该方案的默认设计稿宽度是 750px，flexible 将视觉稿分成了100份，单位为 a，同时规定 10a === 1rem，即：
+我们要知道该方案的默认设计稿宽度是 750px，flexible 将视觉稿分成了100份，单位为 a，同时规定 10a === 1rem，即：
 ```js
 1a = 7.5px
 1rem = 75px
@@ -112,12 +111,12 @@ dpr = 1 时，字号16px；dpr = 2 时，字号16px * 2。
 <meta name="viewport" content="initial-scale=0.3333333333,maximum-scale=0.3333333333,minimum-scale=0.3333333333,user-scalable=no">
 ```
 
-OK，原理介绍得差不多了，现在就是用根据设计稿来写样式了。  
+OK，现在就是根据设计稿来写样式了。  
 但问题来了，难道我每次都要手动 `原始的px值/rem基准值` 计算得到 rem？  
 当然不是，我们可以通过安装 [CSSREM](https://github.com/flashlizi/cssrem) 插件来使 px -> rem。  
 或者利用 SCSS 的混合器或 postcss 来进行换算。  
 
-最后，关于字体可以使用如下 SCSS 混合气：  
+最后，关于字体可以使用如下 SCSS 混合器：  
 ```css
 @mixin font-dpr($font-size){ 
   font-size: $font-size; 
