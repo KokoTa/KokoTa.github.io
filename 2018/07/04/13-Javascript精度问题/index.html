@@ -76,9 +76,9 @@
 <meta property="og:site_name" content="KokoTaの蜡像屋">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/13.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/d3617d2ceb02f6129c9b41361804cbe2_r.jpg">
+<meta property="og:image" content="/images/原码反码补码.png">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/7/10/1a6645d765dc89487b43dd35514273c9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2018-07-05T01:35:34.370Z">
+<meta property="og:updated_time" content="2018-07-13T07:12:55.688Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="13-Javascript精度问题">
 <meta name="twitter:image" content="/images/index/13.jpg">
@@ -315,7 +315,7 @@
 <ol>
 <li>原码：计算机中对数字的二进制表示，最高位表示符号，其余表示数值。优点是简单直观，缺点是不能直接计算。因为如果是正数，原码是可以正常表示并参与计算的，但如果是负数，那么原码需要转成反码后才能进行计算。<strong>eg</strong>：假设有两个四位二进制数，<code>0001</code> 表示 1，<code>1001</code> 表示 -1，此时若两者相加 <code>0001 + 1001 = 1010 = -2 != 0</code>，结果为 -2 是错误的。</li>
 <li>反码：反码即除了符号位外，反转了剩余所有原码的位。<code>1001</code> 的反码是 <code>1110</code>，此时 <code>0001 + 1110 = 1111</code>，而 <code>1111</code> 表示 -0 (<code>0000</code> 表示 +0)，所以结果是正确的。所以说反码解决了负数的二进制表示问题。</li>
-<li>补码：从上一点我们知道了 0 有两个，即 +0 和 -0，按常识来说我们希望只有一个 0，此时我们给负数的所有反码 +1，如图：<br> <img src="https://pic3.zhimg.com/d3617d2ceb02f6129c9b41361804cbe2_r.jpg" alt="image"><br> 这样我们就解决了 0 的问题，同时也解决了”正负数相加不等于0”的问题</li>
+<li>补码：从上一点我们知道了 0 有两个，即 +0 和 -0，按常识来说我们希望只有一个 0，此时我们给负数的所有反码 +1，如图：<br> <img src="/images/原码反码补码.png" alt="image"><br> 这样我们就解决了 0 的问题，同时也解决了”正负数相加不等于0”的问题</li>
 </ol>
 <h1 id="浮点数表示方法"><a href="#浮点数表示方法" class="headerlink" title="浮点数表示方法"></a>浮点数表示方法</h1><p>从 IEEE 754 规范中我们可以得到二进制浮点数的公式：<br><img src="https://user-gold-cdn.xitu.io/2017/7/10/1a6645d765dc89487b43dd35514273c9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image"><br>公式以科学记数法的形式来表示，其中字母的含义和上一节相对应。  </p>
 <ol>
@@ -379,6 +379,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/05/14-服务器踩坑日记/" rel="prev" title="14-服务器踩坑日记">
+                14-服务器踩坑日记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -458,7 +462,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -471,7 +475,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
