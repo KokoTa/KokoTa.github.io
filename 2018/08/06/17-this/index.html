@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,Babylon.js," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="keywords" content="JavaScript,Babylon.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="17-this">
+<meta property="og:url" content="/2018/08/06/17-this/index.html">
+<meta property="og:site_name" content="KokoTaの蜡像屋">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/images/index/17.jpg">
+<meta property="og:updated_time" content="2018-08-06T08:00:44.341Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="17-this">
+<meta name="twitter:image" content="/images/index/17.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="/2018/08/06/17-this/"/>
+
+
+
+
+
+  <title>17-this | KokoTaの蜡像屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KokoTaの蜡像屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/2018/08/06/17-this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KokoTa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KokoTaの蜡像屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">17-this</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T10:57:49+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/index/17.jpg"><br><a id="more"></a></p>
+<h1 id="日常唠叨"><a href="#日常唠叨" class="headerlink" title="日常唠叨"></a>日常唠叨</h1><p>虽然说 <code>this</code> 这个东西是前端开发人员必须知道的东西。<br>但作为一个失忆少年，还是做一下笔记以防记忆重置。  </p>
+<h1 id="正片"><a href="#正片" class="headerlink" title="正片"></a>正片</h1><p>以下内容都在 <strong>Node</strong> 环境中运行：</p>
+<h2 id="全局中的-this"><a href="#全局中的-this" class="headerlink" title="全局中的 this"></a>全局中的 this</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="built_in">console</span>.log(<span class="keyword">this</span> === global); <span class="comment">// true</span></div></pre></td></tr></table></figure>
+<p>如果在命令行中输入该语句，返回 true，的确，全局情况下 this 指向 <code>global</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// index.js</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span> === global); <span class="comment">// false</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span> === <span class="built_in">module</span>.exports); <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span> === exports); <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(exports == <span class="built_in">module</span>.exports); <span class="comment">// true</span></div></pre></td></tr></table></figure></p>
+<p>但如果该语句在文件中并以 node 命令调用，那么 this 指向的是 <code>module.exports</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">// undefined</span></div></pre></td></tr></table></figure></p>
+<p>严格模式下，this 指向 <code>undefined</code>，因此严格模式的代码相比默认模式会更加健壮</p>
+<h2 id="函数中的-this"><a href="#函数中的-this" class="headerlink" title="函数中的 this"></a>函数中的 this</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span> === global); <span class="comment">// true</span></div><div class="line">&#125;</div><div class="line">x();</div></pre></td></tr></table></figure>
+<p>函数中的 this 与调用者有关，这里我们的调用者是全局，因此在非严格模式下，this 指向 <code>global</code>，当然严格模式下是指向 <code>undefined</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">X</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.a = a;</div><div class="line">  <span class="keyword">this</span>.b = b;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> x = X(<span class="number">1</span>, <span class="number">2</span>);</div><div class="line"><span class="built_in">console</span>.log(x); <span class="comment">// undefined</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">// &#123;a: 1, b: 2&#125;</span></div></pre></td></tr></table></figure></p>
+<p>如果函数不是作为构造函数来调用，那么 this 指向就遵循上一个例子，如果在 this 上赋值，就等于是在 <code>global</code> 上赋值，严格模式下会报错<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">X</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.a = a;</div><div class="line">  <span class="keyword">this</span>.b = b;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> X(<span class="number">1</span>, <span class="number">2</span>);</div><div class="line"><span class="built_in">console</span>.log(x); <span class="comment">// &#123;a: 1, b: 2&#125;</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">// &#123;&#125;</span></div></pre></td></tr></table></figure></p>
+<p>如果以构造函数的形式调用，构造函数会新建一个对象并把函数里的 this 指向这个 <code>新对象</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">X</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.a = a;</div><div class="line">  <span class="keyword">this</span>.b = b;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    c: <span class="string">'heihei'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> x = <span class="keyword">new</span> X(<span class="number">1</span>, <span class="number">2</span>);</div><div class="line"><span class="built_in">console</span>.log(x); <span class="comment">// &#123;c: 'heihei'&#125;</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">// &#123;&#125;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Y</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.a = a;</div><div class="line">  <span class="keyword">this</span>.b = b;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    c: <span class="string">'heihei'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> y = <span class="keyword">new</span> Y(<span class="number">1</span>, <span class="number">2</span>);</div><div class="line"><span class="built_in">console</span>.log(y); <span class="comment">// &#123;c: 'heihei'&#125;</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">// &#123;&#125;</span></div></pre></td></tr></table></figure>
+<p>使用 return 语句可以覆盖构造函数的默认调用，但是如果 return 的不是一个 <code>对象</code>，那么返回的还是默认调用的值  </p>
+<h2 id="方法中的-this"><a href="#方法中的-this" class="headerlink" title="方法中的 this"></a>方法中的 this</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> obj = &#123;</div><div class="line">  name: <span class="string">'KokoTa'</span>,</div><div class="line">  method() &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">obj.method(); <span class="comment">// KokoTa</span></div></pre></td></tr></table></figure>
+<p>之前我们说过函数的 this 和调用者有关，这里我们可以看到 obj 是调用者，因此 this 指向 <code>obj</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> m = obj.method();</div><div class="line">m(); <span class="comment">// undefined</span></div></pre></td></tr></table></figure></p>
+<p>如果将方法赋值给变量并调用，全局 是调用者，因此 this 指向 <code>global</code></p>
+<h2 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a>call/apply</h2><p>函数中的 this 是隐式设置的，使用 call/apply 可以显示设置 this 指向<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">method</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> obj = &#123;</div><div class="line">  name: <span class="string">'KokoTa'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">method.call(obj); <span class="comment">// KokoTa</span></div><div class="line">method.apply(obj); <span class="comment">// KokoTa</span></div><div class="line">method(); <span class="comment">// undefined</span></div></pre></td></tr></table></figure></p>
+<p>在非严格模式下使用 call/apply ，JavaScript引擎会忽略传递给 call/apply 的 null/undefined/全局</p>
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>bind 会返回一个绑定了 this 的新函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> obj = &#123;</div><div class="line">  name: <span class="string">'KokoTa'</span>,</div><div class="line">  method() &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> b = obj.method.bind(obj);</div><div class="line"><span class="keyword">const</span> m = obj.method;</div><div class="line">b(); <span class="comment">// KokoTa</span></div><div class="line">m(); <span class="comment">// undefined</span></div></pre></td></tr></table></figure></p>
+<p>注意是返回一个新函数，而不是调用哦~<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> obj2 = &#123;</div><div class="line">  name: <span class="string">'Brain'</span></div><div class="line">&#125;</div><div class="line">b.apply(boj2); <span class="comment">// KokoTa</span></div></pre></td></tr></table></figure></p>
+<p>绑定后，就算使用 call/apply 也无法改变 this 指向</p>
+<h2 id="箭头函数中的-this"><a href="#箭头函数中的-this" class="headerlink" title="箭头函数中的 this"></a>箭头函数中的 this</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> obj = &#123;</div><div class="line">  name: <span class="string">'KokoTa'</span>,</div><div class="line">  method() &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">  &#125;,</div><div class="line">  method2: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">obj.method(); <span class="comment">// KokoTa</span></div><div class="line">obj.method2(); <span class="comment">// undefined</span></div></pre></td></tr></table></figure>
+<p>箭头函数是没有自己的 this 的，它的 this 值由外围最近一层非箭头函数决定，否则为 <code>global</code>(严格模式下为 <code>undefined</code>)<br>上述例子中 method2 本身就是最外层函数了，所以它将指向 <code>global</code><br>箭头函数不能用作构造函数。因此，我们也不能在箭头函数内给 this 设置属性<br>此外，使用 call、apply 或 bind 等方法赋值 this，箭头函数会忽略<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> obj = &#123;</div><div class="line">  count: <span class="number">0</span>,</div><div class="line">  increase () &#123;</div><div class="line">    setInterval (<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      <span class="built_in">console</span>.log (++<span class="keyword">this</span>.count);</div><div class="line">    &#125;, <span class="number">1000</span>);</div><div class="line">  &#125;,</div><div class="line">&#125;;</div><div class="line">obj.increase(); <span class="comment">// 1</span></div></pre></td></tr></table></figure></p>
+<p>箭头函数的用处之一就是绑定作用域，比如定时器里的函数就绑定在了 obj 对象上  </p>
+<h2 id="Class中的-this"><a href="#Class中的-this" class="headerlink" title="Class中的 this"></a>Class中的 this</h2><p>和构造函数同理，Class 本身就是构造函数的语法糖  </p>
+<h1 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h1><p>Babylon.js 是一款基于 WebGL 开发的3D游戏框架，姑且花了一个星期学习了基本用法。<br>计算机图形学真是一门令我又好奇又懵逼的学科~~~<br><a href="http://doc.babylonjs.com/" target="_blank" rel="external">Babylon官网</a><br><a href="https://github.com/KokoTa/All-demo/blob/master/demo/Babylon/MikuFun.html" target="_blank" rel="external">Babylon Demo</a><br><a href="http://www.html5gamedevs.com/topic/39249-arcrotatecamera-zoom-to-mouse-position/?tab=comments#comment-224029" target="_blank" rel="external">ArcRotateCamera zoom to mouse position</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/Babylon-js/" rel="tag"># Babylon.js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/12/16-初入微信开发/" rel="next" title="16-初入微信开发">
+                <i class="fa fa-chevron-left"></i> 16-初入微信开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.jpg"
+              alt="KokoTa" />
+          
+            <p class="site-author-name" itemprop="name">KokoTa</p>
+            <p class="site-description motion-element" itemprop="description">随性地记述，懒散地放空</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/KokoTa" target="_blank" title="GitHub">
+                  GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/KokoTa_0" target="_blank" title="知乎">
+                  知乎</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日常唠叨"><span class="nav-number">1.</span> <span class="nav-text">日常唠叨</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正片"><span class="nav-number">2.</span> <span class="nav-text">正片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全局中的-this"><span class="nav-number">2.1.</span> <span class="nav-text">全局中的 this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数中的-this"><span class="nav-number">2.2.</span> <span class="nav-text">函数中的 this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法中的-this"><span class="nav-number">2.3.</span> <span class="nav-text">方法中的 this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-apply"><span class="nav-number">2.4.</span> <span class="nav-text">call/apply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind"><span class="nav-number">2.5.</span> <span class="nav-text">bind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数中的-this"><span class="nav-number">2.6.</span> <span class="nav-text">箭头函数中的 this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class中的-this"><span class="nav-number">2.7.</span> <span class="nav-text">Class中的 this</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#彩蛋"><span class="nav-number">3.</span> <span class="nav-text">彩蛋</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KokoTa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
