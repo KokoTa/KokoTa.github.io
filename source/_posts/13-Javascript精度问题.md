@@ -2,7 +2,7 @@
 title: 13-Javascript精度问题
 date: 2018-07-04 16:04:00
 tags:
-  - javascript
+  - JavaScript
 ---
 <img src="/images/index/13.jpg" />
 <!--more-->
