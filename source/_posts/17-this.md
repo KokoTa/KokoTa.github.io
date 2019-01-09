@@ -78,12 +78,10 @@ console.log(this); // {}
 function Y(a, b) {
   this.a = a;
   this.b = b;
-  return {
-    c: 'heihei'
-  }
+  return 'heihei';
 }
 const y = new Y(1, 2);
-console.log(y); // {c: 'heihei'}
+console.log(y); // {a: 1, b: 2}
 console.log(this); // {}
 ```
 使用 return 语句可以覆盖构造函数的默认调用，但是如果 return 的不是一个 `对象`，那么返回的还是默认调用的值  
@@ -100,7 +98,7 @@ obj.method(); // KokoTa
 ```
 之前我们说过函数的 this 和调用者有关，这里我们可以看到 obj 是调用者，因此 this 指向 `obj`
 ```js
-const m = obj.method();
+const m = obj.method;
 m(); // undefined
 ```
 如果将方法赋值给变量并调用，全局 是调用者，因此 this 指向 `global`

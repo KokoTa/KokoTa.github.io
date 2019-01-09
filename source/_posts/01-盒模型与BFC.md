@@ -26,10 +26,10 @@ tags:
    `box-sizing: border-box`：标准转IE  
    `box-sizing: content-box`：IE转标准
 5. JS如何获取盒模型的宽高：
-  1. dom.style.width/height：只能取到内联的宽高  
-  2. dom.currentStyle.width/height：最终渲染的宽高(只有IE支持)
+  1. dom.style.width/height：只能 content 的宽高  
+  2. dom.currentStyle.width/height：最终渲染的 content 的宽高(只有IE支持)
   3. window.getComputedStyle(dom).width/height：同2, Firefox和Chrome支持  
-  4. dom.getBoundingClientRect().width/height：返回元素的大小及其相对于视口的位置  
+  4. dom.getBoundingClientRect().width/height：返回包含 margin 的大小及其相对于视口的位置  
 
 ## 问题
 盒模型垂直方向会发生外边距重叠。
@@ -63,7 +63,7 @@ tags:
 3. 父元素左边的border，与子元素左边的margin相接触(对于从左往右的格式化)。即使存在浮动也是如此。
 4. BFC的区域不会与Float Box重叠。  
 ![BFC与Float](/images/BFC与Float.png)  
-如上图所示，左边是浮动块，右边是BFC块，两者不会发生重叠。
+如上图所示，两个同级元素，左边是浮动块，右边是BFC块，两者不会发生重叠。
 5. 计算BFC的高度时，浮动元素也参与计算。
 解释：如图一开始我们设置了一个黑色背景的父元素和一个红色背景的子元素  
 ![BFC高度1](/images/BFC高度1.png)  
