@@ -84,7 +84,7 @@
 <meta property="og:image" content="/images/BFC高度1.png">
 <meta property="og:image" content="/images/BFC高度2.png">
 <meta property="og:image" content="/images/BFC高度1.png">
-<meta property="og:updated_time" content="2018-05-09T10:19:35.086Z">
+<meta property="og:updated_time" content="2019-01-09T14:09:03.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="01-盒模型与BFC">
 <meta name="twitter:image" content="/images/index/01.jpg">
@@ -315,10 +315,10 @@
 <li>标准盒模型的模型高度 = content的高度<br>IE盒模型的模型高度 = content + padding + border 的高度<br>(宽度同理)<br><img src="/images/standard-box.jpg" alt="Standard-box"><br><img src="/images/ie-box.jpg" alt="IE-box"></li>
 <li>CSS3的<code>box-sizing</code>提供了两种盒模型的转换：<br><code>box-sizing: border-box</code>：标准转IE<br><code>box-sizing: content-box</code>：IE转标准</li>
 <li>JS如何获取盒模型的宽高：<ol>
-<li>dom.style.width/height：只能取到内联的宽高  </li>
-<li>dom.currentStyle.width/height：最终渲染的宽高(只有IE支持)</li>
+<li>dom.style.width/height：只能 content 的宽高  </li>
+<li>dom.currentStyle.width/height：最终渲染的 content 的宽高(只有IE支持)</li>
 <li>window.getComputedStyle(dom).width/height：同2, Firefox和Chrome支持  </li>
-<li>dom.getBoundingClientRect().width/height：返回元素的大小及其相对于视口的位置  </li>
+<li>dom.getBoundingClientRect().width/height：返回包含 margin 的大小及其相对于视口的位置  </li>
 </ol>
 </li>
 </ol>
@@ -335,7 +335,7 @@
 <li>内部的Box会在垂直方向，一个接一个地放置。<br>解释：内部的Box就像文档流从上到下一样，按顺序排列</li>
 <li>属于同一个BFC的两个相邻Box的margin会发生重叠。</li>
 <li>父元素左边的border，与子元素左边的margin相接触(对于从左往右的格式化)。即使存在浮动也是如此。</li>
-<li>BFC的区域不会与Float Box重叠。<br><img src="/images/BFC与Float.png" alt="BFC与Float"><br>如上图所示，左边是浮动块，右边是BFC块，两者不会发生重叠。</li>
+<li>BFC的区域不会与Float Box重叠。<br><img src="/images/BFC与Float.png" alt="BFC与Float"><br>如上图所示，两个同级元素，左边是浮动块，右边是BFC块，两者不会发生重叠。</li>
 <li>计算BFC的高度时，浮动元素也参与计算。<br>解释：如图一开始我们设置了一个黑色背景的父元素和一个红色背景的子元素<br><img src="/images/BFC高度1.png" alt="BFC高度1"><br>接下来我们使红色元素左浮动，我们发现父元素的高度变为了0<br><img src="/images/BFC高度2.png" alt="BFC高度2"><br>此时如果我们给父元素添加BFC，浮动元素也参与父元素的高度计算<br><img src="/images/BFC高度1.png" alt="BFC高度1"><br>Look!终于正常了！</li>
 </ol>
 <h2 id="BFC应用"><a href="#BFC应用" class="headerlink" title="BFC应用"></a>BFC应用</h2><ol>
@@ -544,7 +544,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -77,7 +77,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/18.jpg">
 <meta property="og:image" content="/images/缓存策略.jpg">
-<meta property="og:updated_time" content="2018-10-22T08:29:42.035Z">
+<meta property="og:updated_time" content="2019-01-09T14:09:03.714Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="18-缓存详解">
 <meta name="twitter:image" content="/images/index/18.jpg">
@@ -390,7 +390,7 @@
 <p>情况一：当服务器响应设置为 <code>Cache-Control: no-cache</code> 时：</p>
 <p>结果是相同的资源不会重复加载，而是从 Memory Cache 中取缓存，最终请求数为 3。</p>
 <p>情况二：当服务器响应设置为 <code>Cache-Control: no-store</code> 时：</p>
-<p>结果是三种资源都被请求了 2 次，而且图片因为还多一次异步请求，总计 3 次。</p>
+<p>结果是三种资源都被请求了 2 次，而且图片还多了一次动态请求。</p>
 <h2 id="Service-Worker-amp-Memory-Disk-Cache"><a href="#Service-Worker-amp-Memory-Disk-Cache" class="headerlink" title="Service Worker &amp; Memory(Disk) Cache"></a>Service Worker &amp; Memory(Disk) Cache</h2><p>写一个 serviceWorker.js，指定要缓存的 3 个文件：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// serviceWorker.js</span></div><div class="line">self.addEventListener(<span class="string">'install'</span>, e =&gt; &#123;</div><div class="line">  <span class="comment">// 当确定要访问某些资源时，提前请求并添加到缓存中。</span></div><div class="line">  <span class="comment">// 这个模式叫做“预缓存”</span></div><div class="line">  e.waitUntil(</div><div class="line">    caches.open(<span class="string">'service-worker-test-precache'</span>).then(<span class="function"><span class="params">cache</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">return</span> cache.addAll([<span class="string">'/static/index.js'</span>, <span class="string">'/static/index.css'</span>, <span class="string">'/static/mashroom.jpg'</span>])</div><div class="line">    &#125;)</div><div class="line">  )</div><div class="line">&#125;)</div><div class="line"></div><div class="line">self.addEventListener(<span class="string">'fetch'</span>, e =&gt; &#123;</div><div class="line">  <span class="comment">// 缓存中能找到就返回，找不到就网络请求，之后再写入缓存并返回。</span></div><div class="line">  <span class="comment">// 这个称为 CacheFirst 的缓存策略。</span></div><div class="line">  <span class="keyword">return</span> e.respondWith(</div><div class="line">    caches.open(<span class="string">'service-worker-test-precache'</span>).then(<span class="function"><span class="params">cache</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">return</span> cache.match(e.request).then(<span class="function"><span class="params">matchedResponse</span> =&gt;</span> &#123;</div><div class="line">        <span class="keyword">return</span> matchedResponse || fetch(e.request).then(<span class="function"><span class="params">fetchedResponse</span> =&gt;</span> &#123;</div><div class="line">          cache.put(e.request, fetchedResponse.clone())</div><div class="line">          <span class="keyword">return</span> fetchedResponse</div><div class="line">        &#125;)</div><div class="line">      &#125;)</div><div class="line">    &#125;)</div><div class="line">  )</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 这个也叫做 NetworkOnly 的缓存策略，即不从数据库里找，直接去 Memory/Disk Cache 里找。</span></div><div class="line"><span class="comment">// Network 里显示的还是 from ServiceWorker</span></div><div class="line"><span class="comment">// self.addEventListener('fetch', e =&gt; &#123;</span></div><div class="line"><span class="comment">//    return e.respondWith(fetch(e.request))</span></div><div class="line"><span class="comment">// &#125;)</span></div></pre></td></tr></table></figure>
 <p>第一次加载：除了 3 次网络请求，还多了 3 次预缓存操作，共计 6 次。</p>
@@ -606,7 +606,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
