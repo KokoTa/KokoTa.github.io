@@ -71,8 +71,8 @@
 
 <meta name="keywords" content="HTML&#x2F;CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="01-盒模型与BFC">
-<meta property="og:url" content="/2017/09/23/01-盒模型与BFC/index.html">
+<meta property="og:title" content="01-盒模型&#x2F;BFC&#x2F;布局">
+<meta property="og:url" content="/2017/09/23/01-盒模型-BFC-布局/index.html">
 <meta property="og:site_name" content="KokoTaの蜡像屋">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/01.jpg">
@@ -84,9 +84,9 @@
 <meta property="og:image" content="/images/BFC高度1.png">
 <meta property="og:image" content="/images/BFC高度2.png">
 <meta property="og:image" content="/images/BFC高度1.png">
-<meta property="og:updated_time" content="2019-01-09T14:09:03.708Z">
+<meta property="og:updated_time" content="2019-03-04T19:08:46.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="01-盒模型与BFC">
+<meta name="twitter:title" content="01-盒模型&#x2F;BFC&#x2F;布局">
 <meta name="twitter:image" content="/images/index/01.jpg">
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="/2017/09/23/01-盒模型与BFC/"/>
+  <link rel="canonical" href="/2017/09/23/01-盒模型-BFC-布局/"/>
 
 
 
 
 
-  <title>01-盒模型与BFC | KokoTaの蜡像屋</title>
+  <title>01-盒模型/BFC/布局 | KokoTaの蜡像屋</title>
   
 
 
@@ -240,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="/2017/09/23/01-盒模型与BFC/">
+    <link itemprop="mainEntityOfPage" href="/2017/09/23/01-盒模型-BFC-布局/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="KokoTa">
@@ -257,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">01-盒模型与BFC</h1>
+          <h1 class="post-title" itemprop="name headline">01-盒模型/BFC/布局</h1>
         
 
         <div class="post-meta">
@@ -308,30 +308,28 @@
 
       
         <p><img src="/images/index/01.jpg"><br><a id="more"></a></p>
-<h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><p>他：盒模型是什么？<br>我：就是一个盒子啊！<br>他：能具体说说看吗？<br>我：不能。<br>他：吔屎啦你！  </p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ol>
+<h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><p>他：盒模型是什么？<br>我：就是一个盒子啊！<br>他：能具体说说看吗？<br>我：不能。<br>他：吔屎啦你！</p>
+<h2 id="盒模型概念"><a href="#盒模型概念" class="headerlink" title="盒模型概念"></a>盒模型概念</h2><ol>
 <li>盒模型包含：margin, border, padding, content 这四部分。</li>
-<li>盒模型分为两种：标准盒模型和IE盒模型。 </li>
-<li>标准盒模型的模型高度 = content的高度<br>IE盒模型的模型高度 = content + padding + border 的高度<br>(宽度同理)<br><img src="/images/standard-box.jpg" alt="Standard-box"><br><img src="/images/ie-box.jpg" alt="IE-box"></li>
+<li>盒模型分为两种：标准盒模型和IE盒模型。</li>
+<li>标准盒模型的模型高度 = content的高度<br>IE盒模型的模型高度 = content + padding + border 的高度(宽度同理)<br><img src="/images/standard-box.jpg" alt="Standard-box"><br><img src="/images/ie-box.jpg" alt="IE-box"></li>
 <li>CSS3的<code>box-sizing</code>提供了两种盒模型的转换：<br><code>box-sizing: border-box</code>：标准转IE<br><code>box-sizing: content-box</code>：IE转标准</li>
-<li>JS如何获取盒模型的宽高：<ol>
-<li>dom.style.width/height：只能 content 的宽高  </li>
-<li>dom.currentStyle.width/height：最终渲染的 content 的宽高(只有IE支持)</li>
-<li>window.getComputedStyle(dom).width/height：同2, Firefox和Chrome支持  </li>
-<li>dom.getBoundingClientRect().width/height：返回包含 margin 的大小及其相对于视口的位置  </li>
+<li>JS如何获取盒模型的宽高：</li>
+<li>dom.style.width/height：只能获取内联的 content 的宽高</li>
+<li>dom.currentStyle.width/height：获取最终渲染的 content 的宽高(只有IE支持)</li>
+<li>window.getComputedStyle(dom).width/height：同2(Firefox和Chrome支持)</li>
+<li>dom.getBoundingClientRect().width/height：获取最终渲染的盒子的宽高和位置</li>
 </ol>
-</li>
-</ol>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>盒模型垂直方向会发生外边距重叠。<br><img src="/images/边距重叠.png" alt="边距重叠"><br>上图显示了我们给红块添加了一个上外边距<code>margin-top: 100px</code>，那么此时body的位置是否发生了变化？<br><img src="/images/边距重叠2.png" alt="边距重叠"><br>答案是body也会有一个上外边距<code>margin-top: 100px</code>的效果。<br>那么为什么会发生重叠呢？<br>这个就要扯到BFC了。<br>但在此之前还需要声明的是，外边距重叠分为三种类型：<br>父子元素重叠，兄弟元素重叠，空元素重叠<br>它们都是取的外边距最大值</p>
-<h1 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h1><h2 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h2><p>块格式化上下文（block formatting context）是一个独立的渲染区域，容器里面的子元素不会在布局上影响到外面的元素。只有Block-level box参与， 它规定了内部的Block-level Box如何布局。块格式化上下文包括了创建该上下文的元素的所有子元素，但不包括创建了新的块格式化上下文的子元素。<br>其实上面废话这么多总结一句就是：BFC会创建一个独立的盒子，这个盒子，包括里面的东西都是与外界隔绝的。  </p>
+<h2 id="盒模型问题"><a href="#盒模型问题" class="headerlink" title="盒模型问题"></a>盒模型问题</h2><p>盒模型垂直方向会发生外边距重叠。<br><img src="/images/边距重叠.png" alt="边距重叠"><br>上图显示了我们给红块添加了一个上外边距<code>margin-top: 100px</code>，那么此时body的位置是否发生了变化？<br><img src="/images/边距重叠2.png" alt="边距重叠"><br>答案是body也会有一个上外边距<code>margin-top: 100px</code>的效果。<br>那么为什么会发生重叠呢？<br>这个就要扯到BFC了。<br>但在此之前还需要声明的是，外边距重叠分为三种类型：<br>父子元素重叠，兄弟元素重叠，空元素重叠<br>它们都是取的外边距最大值</p>
+<h1 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h1><h2 id="BFC概念"><a href="#BFC概念" class="headerlink" title="BFC概念"></a>BFC概念</h2><p>块格式化上下文（block formatting context）是一个独立的渲染区域，容器里面的子元素不会在布局上影响到外面的元素。只有Block-level box参与， 它规定了内部的Block-level Box如何布局。块格式化上下文包括了创建该上下文的元素的所有子元素，但不包括创建了新的块格式化上下文的子元素。<br>其实上面废话这么多总结一句就是：BFC会创建一个独立的盒子，这个盒子，包括里面的东西都是与外界隔绝的。</p>
 <h2 id="如何生成BFC"><a href="#如何生成BFC" class="headerlink" title="如何生成BFC"></a>如何生成BFC</h2><ol>
 <li>根元素，即HTML元素</li>
 <li>float的值不为none</li>
 <li>overflow的值不为visible</li>
-<li>display的值为inline-block、table-cell、table-caption</li>
+<li>display的值为inline-block、table-cell、table-caption等</li>
 <li>position的值为absolute或fixed</li>
 </ol>
-<h2 id="布局规则-原理"><a href="#布局规则-原理" class="headerlink" title="布局规则/原理"></a>布局规则/原理</h2><ol>
+<h2 id="BFC布局规则-原理"><a href="#BFC布局规则-原理" class="headerlink" title="BFC布局规则/原理"></a>BFC布局规则/原理</h2><ol>
 <li>内部的Box会在垂直方向，一个接一个地放置。<br>解释：内部的Box就像文档流从上到下一样，按顺序排列</li>
 <li>属于同一个BFC的两个相邻Box的margin会发生重叠。</li>
 <li>父元素左边的border，与子元素左边的margin相接触(对于从左往右的格式化)。即使存在浮动也是如此。</li>
@@ -342,6 +340,9 @@
 <li>自适应两栏布局<br>解释：见原理第4点</li>
 <li>可以阻止元素被浮动元素覆盖和清除内部浮动<br>解释：见原理第5点</li>
 <li>分属于不同的BFC时可以阻止margin重叠</li>
+</ol>
+<h1 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h1><ol>
+<li><a href="https://github.com/KokoTa/All-demo/blob/master/demo/Layout/%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80/index.html" target="_blank" rel="external">三栏布局的五种写法</a></li>
 </ol>
 
       
@@ -379,8 +380,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/24/02-事件/" rel="prev" title="02-事件">
-                02-事件 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/24/02-事件/" rel="prev" title="02-事件/类型转换">
+                02-事件/类型转换 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -521,7 +522,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#盒模型"><span class="nav-number">1.</span> <span class="nav-text">盒模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.2.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC"><span class="nav-number">2.</span> <span class="nav-text">BFC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念-1"><span class="nav-number">2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何生成BFC"><span class="nav-number">2.2.</span> <span class="nav-text">如何生成BFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布局规则-原理"><span class="nav-number">2.3.</span> <span class="nav-text">布局规则/原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC应用"><span class="nav-number">2.4.</span> <span class="nav-text">BFC应用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#盒模型"><span class="nav-number">1.</span> <span class="nav-text">盒模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#盒模型概念"><span class="nav-number">1.1.</span> <span class="nav-text">盒模型概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#盒模型问题"><span class="nav-number">1.2.</span> <span class="nav-text">盒模型问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC"><span class="nav-number">2.</span> <span class="nav-text">BFC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC概念"><span class="nav-number">2.1.</span> <span class="nav-text">BFC概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何生成BFC"><span class="nav-number">2.2.</span> <span class="nav-text">如何生成BFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC布局规则-原理"><span class="nav-number">2.3.</span> <span class="nav-text">BFC布局规则/原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC应用"><span class="nav-number">2.4.</span> <span class="nav-text">BFC应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#布局"><span class="nav-number">3.</span> <span class="nav-text">布局</span></a></li></ol></div>
             
 
           </div>

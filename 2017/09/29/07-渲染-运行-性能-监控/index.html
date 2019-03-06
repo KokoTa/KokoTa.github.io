@@ -86,7 +86,7 @@
 <meta property="og:image" content="/images/运行机制.jpg">
 <meta property="og:image" content="/images/缓存1.jpg">
 <meta property="og:image" content="/images/缓存2.jpg">
-<meta property="og:updated_time" content="2019-01-09T14:09:03.709Z">
+<meta property="og:updated_time" content="2019-03-06T17:59:04.579Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="07-渲染&#x2F;运行&#x2F;性能&#x2F;监控">
 <meta name="twitter:image" content="/images/index/07.jpg">
@@ -312,8 +312,8 @@
         <p><img src="/images/index/07.jpg"><br><a id="more"></a></p>
 <h1 id="浏览器渲染机制"><a href="#浏览器渲染机制" class="headerlink" title="浏览器渲染机制"></a>浏览器渲染机制</h1><p>他：你会写页面吧？<br>我：当然啦。<br>他：那你知道页面是怎么显示出来的吗？<br>我：废话，当然是在显示器里显示出来的啊。<br>他：…</p>
 <h2 id="DOCTYPE及作用"><a href="#DOCTYPE及作用" class="headerlink" title="DOCTYPE及作用"></a>DOCTYPE及作用</h2><ol>
-<li><strong>DTD</strong>(document type definition，文档类型定义)是一系列语法规则，用来定义XML或(X)HTML的文件类型。浏览器根据它判断文档类型，决定使用何种协议来解析，以及切换浏览器模式   </li>
-<li><strong>DOCTYPE</strong>用来告诉浏览器文档是哪个DTD，主要用途之一是文件合法性验证，如果文件代码不合法，那么浏览器解析时会出现一些差错  </li>
+<li><strong>DTD</strong>(document type definition，文档类型定义)是一系列语法规则，用来定义XML或(X)HTML的文件类型。浏览器根据它判断文档类型，决定使用何种协议来解析，以及切换浏览器模式</li>
+<li><strong>DOCTYPE</strong>用来告诉浏览器文档是哪个DTD，主要用途之一是文件合法性验证，如果文件代码不合法，那么浏览器解析时会出现一些差错</li>
 <li><strong>DOCTYPE分类</strong>：<ol>
 <li>HTML5：<code>&lt;!DOCTYPE html&gt;</code></li>
 <li>HTML 4.01 Strict：该DTD包含所有HTML元素和属性，但不包括展示性的和弃用的元素，比如<code>font</code></li>
@@ -330,20 +330,18 @@
 </ol>
 <h3 id="重排Reflow"><a href="#重排Reflow" class="headerlink" title="重排Reflow"></a>重排Reflow</h3><ol>
 <li><strong>定义</strong>：DOM结构中各个元素都有自己的盒子(模型)，它们都需要浏览器根据各种样式来计算并根据计算结果将元素放到该出现的位置，这个过程称为Reflow</li>
-<li><p><strong>触发条件</strong>：</p>
-<ol>
+<li><strong>触发条件</strong>：<ol>
 <li>添加或者删除可见的 DOM 元素</li>
 <li>改变元素尺寸，比如边距、边框、宽度和高度</li>
 <li>内容变化，比如用户在 input 框中输入文字、父元素添加子元素</li>
 <li>resize窗口(移动端没这个问题)，滚动窗口</li>
 <li>计算 offsetWidth 和 offsetHeight 属性</li>
 <li>设置 style 属性的值</li>
-<li><p>改变字体大小</p>
+<li>改变字体大小</li>
+</ol>
+</li>
+</ol>
 <p><img src="/images/重排.jpg" alt="重排"></p>
-</li>
-</ol>
-</li>
-</ol>
 <h3 id="重绘Repaint"><a href="#重绘Repaint" class="headerlink" title="重绘Repaint"></a>重绘Repaint</h3><ol>
 <li><strong>定义</strong>：当各种盒子的位置及其他属性(如颜色、字体大小等)确定下来后，浏览器按照它们的特性绘制了一遍，这个过程称为Repaint</li>
 <li><strong>触发条件</strong>：<br> <img src="/images/重绘.jpg" alt="重绘"></li>
@@ -351,15 +349,16 @@
 <p>PS：重排一定引起重绘，重绘不一定引起重排</p>
 <h3 id="如何减少重排重绘"><a href="#如何减少重排重绘" class="headerlink" title="如何减少重排重绘"></a>如何减少重排重绘</h3><ol>
 <li>使用 transform 替代 top/left/right/bottom，前者不会发生重排，后者会</li>
-<li>使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发回流（改变了布局）</li>
+<li>将需要多次重排的元素 position 属性设为 absolute 或 fixed，脱离文档流，减少重排量</li>
+<li>使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发重排（改变了布局）</li>
 <li><p>不要把节点的属性值放在一个循环里当成循环里的变量，比如获取 offsetTop 时将它保存到变量里使用，而非频繁读取：</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</div><div class="line">  <span class="comment">// 获取 offsetTop 会导致回流，因为需要去获取正确的值</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="built_in">document</span>.querySelector(<span class="string">'.test'</span>).style.offsetTop)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</div><div class="line">  <span class="comment">// 获取 offsetTop 会导致回流，因为需要去获取正确的值</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.querySelector(<span class="string">'.test'</span>).style.offsetTop)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局</p>
 </li>
-<li>动画实现的速度的选择，动画速度越快，回流次数越多，可以选择使用 requestAnimationFrame</li>
+<li>动画实现的速度的选择，动画速度越快，重排次数越多，可以选择使用 requestAnimationFrame</li>
 <li>CSS 选择符从右往左匹配查找，避免节点层级过多</li>
-<li>将频繁重绘或者回流的节点设置为图层(z-index)，图层能够阻止该节点的渲染行为影响别的节点，比如对于 video 标签来说，浏览器会自动将该节点变为图层</li>
+<li>将频繁重排或重绘的节点设置为图层(z-index)，图层能够阻止该节点的渲染行为影响别的节点，比如对于 video 标签来说，浏览器会自动将该节点变为图层</li>
 </ol>
 <h3 id="浏览器加载资源的流程"><a href="#浏览器加载资源的流程" class="headerlink" title="浏览器加载资源的流程"></a>浏览器加载资源的流程</h3><p>通过上面我们了解了浏览器渲染的原理，那么渲染之前的加载过程是什么样的呢？假设加载资源的 html 如下：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">type</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"main.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"main.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">type</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"other.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">type</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"other2.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"other.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -377,22 +376,24 @@
 <p>而碰到 JS 资源时，它会阻塞 html 解析，同时也会阻塞后面的其他资源(CSS/图片等)</p>
 <p>这是因为 JS 不仅可以修改 DOM，它还可以更改样式，也就是它可以更改 CSS，但不完整的 CSS 是无法使用的，而 JS 中想访问 CSS 并更改它，则必须要能拿到完整的 CSS。所以就导致了一个现象，如果浏览器尚未完成 CSS 的下载和构建，而我们却想在此时运行脚本，那么浏览器将延迟脚本执行和 DOM 构建，直至其完成 CSS 的下载和构建。也就是说，在这种情况下，浏览器会先下载和构建 CSS，然后再执行 JS，最后在继续构建DOM。这里需要格外注意：JS 会阻塞他前面的 CSS 的加载，这里的阻塞是等到它加载完毕；也会阻塞后面的 CSS 加载，这里的阻塞是暂时不进行加载</p>
 <h1 id="JS运行机制"><a href="#JS运行机制" class="headerlink" title="JS运行机制"></a>JS运行机制</h1><p>我：控制台怎么什么都不显示？！<br>他：你可能不了解代码的运行机制。<br>我：啊！我知道了，我没调用console.log！<br>他：…</p>
-<h2 id="JS是单线程的"><a href="#JS是单线程的" class="headerlink" title="JS是单线程的"></a>JS是单线程的</h2><p>我们都知道JS是单线程的，举个栗子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="number">1</span>); <span class="comment">// A</span></div><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">2</span>), <span class="number">0</span>); <span class="comment">// B</span></div><div class="line"><span class="built_in">console</span>.log(<span class="number">3</span>); <span class="comment">// C</span></div></pre></td></tr></table></figure></p>
+<h2 id="JS是单线程的"><a href="#JS是单线程的" class="headerlink" title="JS是单线程的"></a>JS是单线程的</h2><p>我们都知道JS是单线程的，举个栗子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="number">1</span>); <span class="comment">// A</span></div><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">2</span>), <span class="number">0</span>); <span class="comment">// B</span></div><div class="line"><span class="built_in">console</span>.log(<span class="number">3</span>); <span class="comment">// C</span></div></pre></td></tr></table></figure>
 <p>答案是1 3 2<br>为什么？<br>这就要扯到一些概念了。</p>
 <ol>
 <li><strong>调用栈</strong>：存放执行任务的堆栈</li>
 <li><strong>任务队列</strong>：存放异步任务回调的队列</li>
 <li><strong>Event Loop(事件循环)</strong>：不停地询问任务队列中有木有任务的一种机制</li>
 </ol>
-<h2 id="运行机制分析"><a href="#运行机制分析" class="headerlink" title="运行机制分析"></a>运行机制分析</h2><p>比如上面代码吧，代码从上到下扫描后执行<br>先扫描到A，发现A是同步任务，放入执行栈<br>扫描到B，发现B是异步任务，看情况要不要放入任务队列中<br>扫描到C，发现C是同步任务，放入执行栈<br>然后执行栈开始执行任务，输出1 3<br>执行完后事件循环机制询问任务队列有木有任务<br>然后发现B在0s后(其实是4ms)返回了回调函数，回调函数放在了任务队列中<br>事件循环机制发现任务队列里有任务，就按顺序把任务取出放入执行栈<br>执行栈再执行，输出2<br>完毕  </p>
-<p>下面我们再看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; i++) &#123;</div><div class="line">	setTiemout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(i), <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>结果是输出4个4<br>为什么？<br>首先我们知道循环是同步任务，执行栈执行了循环并定义了4个异步任务<br>异步任务的回调在1s后放入任务队列<br>事件循环在1s后发现任务队列有返回的回调函数<br>取出放入执行栈执行之<br>发现函数内需要用到i<br>最后根据作用域机制获得并输出循环后的i值4<br>完毕  </p>
+<h2 id="运行机制分析"><a href="#运行机制分析" class="headerlink" title="运行机制分析"></a>运行机制分析</h2><p>比如上面代码吧，代码从上到下扫描后执行<br>先扫描到A，发现A是同步任务，放入执行栈<br>扫描到B，发现B是异步任务，看情况要不要放入任务队列中<br>扫描到C，发现C是同步任务，放入执行栈<br>然后执行栈开始执行任务，输出1 3<br>执行完后事件循环机制询问任务队列有木有任务<br>然后发现B在0s后(其实是4ms)返回了回调函数，回调函数放在了任务队列中<br>事件循环机制发现任务队列里有任务，就按顺序把任务取出放入执行栈<br>执行栈再执行，输出2<br>完毕</p>
+<p>下面我们再看一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; i++) &#123;</div><div class="line">  setTiemout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(i), <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结果是输出4个4<br>为什么？<br>首先我们知道循环是同步任务，执行栈执行了循环并定义了4个异步任务<br>异步任务的回调在1s后放入任务队列<br>事件循环在1s后发现任务队列有返回的回调函数<br>取出放入执行栈执行之<br>发现函数内需要用到i<br>最后根据作用域机制获得并输出循环后的i值4<br>完毕</p>
 <p>附上流程图作为参考：<br><img src="/images/运行机制.jpg" alt="运行机制"></p>
 <h2 id="异步任务"><a href="#异步任务" class="headerlink" title="异步任务"></a>异步任务</h2><p>根据上图，我们发现异步任务分为以下几类：</p>
 <ol>
 <li>setTimeout/setInterval</li>
 <li>DOM事件</li>
-<li>ES6中的Promise  </li>
+<li>ES6中的Promise</li>
 </ol>
 <p>PS：关于setTimeout与Promise的关系可参见<a href="https://www.zhihu.com/question/36972010" target="_blank" rel="external">这个链接</a></p>
 <h1 id="页面性能优化"><a href="#页面性能优化" class="headerlink" title="页面性能优化"></a>页面性能优化</h1><p>我：啊！这个网页加载速度好慢啊！<br>他：那这个网站的性能肯定很差吧。<br>我：对啊！你看它到现在就只显示一个带数字页面！<br>他：那不是已经显示出来了吗？什么页面？<br>我：上面写着404 Not Found！<br>他：…</p>
@@ -419,18 +420,18 @@
 <h2 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h2><ol>
 <li><p>缓存分类：</p>
 <ol>
-<li><p>强缓存： </p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Expires Expires:Thu, <span class="number">21</span> Jan <span class="number">2017.</span>..</div><div class="line"><span class="keyword">Cache</span><span class="params">-Control</span> <span class="keyword">Cache</span><span class="params">-COntrol</span>:<span class="keyword">max</span><span class="params">-age</span>=<span class="number">3600</span></div></pre></td></tr></table></figure>
+<li><p>强缓存：</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Expires Expires:Thu, 21 Jan 2017...</div><div class="line">Cache-Control Cache-COntrol:max-age=3600</div></pre></td></tr></table></figure>
 </li>
 <li><p>协商缓存：</p>
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Last</span>-Modified/<span class="keyword">If</span>-Modified-Since</div><div class="line">Etag/<span class="keyword">If</span>-<span class="keyword">None</span>-Match</div></pre></td></tr></table></figure>
+ <figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Last-Modified/If-Modified-Since</span></div><div class="line"><span class="attribute">Etag/If-None-Match</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
 <li><p>示意图：</p>
 <ol>
 <li>第一次请求：<br><img src="/images/缓存1.jpg" alt="缓存1"></li>
-<li>之后的请求：<br><img src="/images/缓存2.jpg" alt="缓存2">  </li>
+<li>之后的请求：<br><img src="/images/缓存2.jpg" alt="缓存2"></li>
 </ol>
 </li>
 </ol>
@@ -457,7 +458,8 @@
 </ol>
 <h2 id="上报错误"><a href="#上报错误" class="headerlink" title="上报错误"></a>上报错误</h2><ol>
 <li>Ajax上报(不推荐)</li>
-<li>Image上报<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(<span class="keyword">new</span> Image()).src = <span class="string">'http://baidu.com/test?k=xxx'</span>;</div></pre></td></tr></table></figure></li>
+<li><p>Image上报</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(<span class="keyword">new</span> Image()).src = <span class="string">'http://baidu.com/test?k=xxx'</span>;</div></pre></td></tr></table></figure></li>
 </ol>
 
       

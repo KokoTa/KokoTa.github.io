@@ -79,7 +79,7 @@
 <meta property="og:image" content="/images/原型1.png">
 <meta property="og:image" content="/images/原型2.jpg">
 <meta property="og:image" content="/images/instanceof.png">
-<meta property="og:updated_time" content="2018-08-06T08:00:44.336Z">
+<meta property="og:updated_time" content="2019-03-05T08:44:08.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="04-原型">
 <meta name="twitter:image" content="/images/index/04.jpg">
@@ -306,30 +306,31 @@
 <h1 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h1><p>他：你可以走了，我知道你什么都不懂。<br>我：我觉得我还可以抢救一下。<br>他：那你告诉我原型是什么。<br>我：出口在哪里？</p>
 <h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><ol>
 <li><p>字面量</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</div></pre></td></tr></table></figure>
+   <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</div></pre></td></tr></table></figure>
 </li>
 <li><p>new</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;);</div><div class="line"><span class="comment">// or</span></div><div class="line"><span class="keyword">var</span> O = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.x=<span class="number">1</span>;&#125;;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> O();</div></pre></td></tr></table></figure>
+   <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;);</div><div class="line"><span class="comment">// or</span></div><div class="line"><span class="keyword">var</span> O = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.x=<span class="number">1</span>;&#125;;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> O();</div></pre></td></tr></table></figure>
 </li>
 <li><p>Object.create()</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> P = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(P);</div><div class="line"><span class="comment">// obj.__proto__ === P</span></div></pre></td></tr></table></figure>
+   <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> P = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(P);</div><div class="line"><span class="comment">// obj.__proto__ === P</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="原型关系"><a href="#原型关系" class="headerlink" title="原型关系"></a>原型关系</h2><p><img src="/images/原型1.png" alt="原型1"><br><img src="/images/原型2.jpg" alt="原型2"><br>PS：</p>
+<h2 id="原型关系"><a href="#原型关系" class="headerlink" title="原型关系"></a>原型关系</h2><p><img src="/images/原型1.png" alt="原型1"><br><img src="/images/原型2.jpg" alt="原型2"></p>
 <ol>
 <li>每个对象都有<code>__proto__</code>(函数也是对象)</li>
 <li>只有函数默认有<code>prototype</code>，对象没有</li>
 </ol>
-<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p><img src="/images/instanceof.png" alt="instanceof"><br>instanceof关联的是构造函数的prototype，而不是构造函数本身<br>另外，只要实例的<code>__proto__</code>在prototype链中，instanceof就会返回true<br>举个栗子：<br>设一个构造函数F，它的实例为f，那么<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 结果</span></div><div class="line">f <span class="keyword">instanceof</span> F -&gt; <span class="literal">true</span></div><div class="line">f <span class="keyword">instanceof</span> <span class="built_in">Object</span> -&gt; <span class="literal">true</span></div><div class="line"><span class="comment">// 原因</span></div><div class="line">f.__proto__ === F.prototype</div><div class="line">F.prototype.__proto__ === <span class="built_in">Object</span>.prototype</div></pre></td></tr></table></figure></p>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p><img src="/images/instanceof.png" alt="instanceof"><br>instanceof关联的是构造函数的prototype，而不是构造函数本身<br>另外，只要实例的<code>__proto__</code>在prototype链中，instanceof就会返回true<br>举个栗子：<br>设一个构造函数F，它的实例为f，那么  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 结果</span></div><div class="line">f <span class="keyword">instanceof</span> F -&gt; <span class="literal">true</span></div><div class="line">f <span class="keyword">instanceof</span> <span class="built_in">Object</span> -&gt; <span class="literal">true</span></div><div class="line"><span class="comment">// 原因</span></div><div class="line">f.__proto__ === F.prototype</div><div class="line">F.prototype.__proto__ === <span class="built_in">Object</span>.prototype</div></pre></td></tr></table></figure>
 <p>因此如果想判断实例的构造函数，可以用constructor(当然这货可能会被改，详情见下一章)</p>
-<h2 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h2><p>运行流程：  </p>
+<h2 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h2><p>运行流程：</p>
 <ol>
 <li>新建对象，赋值其<code>__proto__</code>为<code>foo.prototype</code></li>
 <li>构造函数foo传入参数并执行，上下文this被指定为这个新对象</li>
 <li>如果构造函数返回了一个对象，那么这个对象会取代整个new的结果，否则返回new出来的新对象</li>
 </ol>
-<p>运行模拟：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">new</span>(<span class="params">func</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> o = <span class="built_in">Object</span>.create(func.prototype);</div><div class="line">	<span class="keyword">var</span> k = func.call(o);</div><div class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> k === <span class="string">'object'</span>) &#123;</div><div class="line">		<span class="keyword">return</span> k;</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		<span class="keyword">return</span> o;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
+<p>运行模拟：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">new</span>(<span class="params">func</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> o = <span class="built_in">Object</span>.create(func.prototype);</div><div class="line">  <span class="keyword">var</span> k = func.call(o);</div><div class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> k === <span class="string">'object'</span>) &#123;</div><div class="line">    <span class="keyword">return</span> k;</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> o;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
     
