@@ -86,7 +86,7 @@
 <meta property="og:image" content="/images/运行机制.jpg">
 <meta property="og:image" content="/images/缓存1.jpg">
 <meta property="og:image" content="/images/缓存2.jpg">
-<meta property="og:updated_time" content="2019-03-06T17:59:04.579Z">
+<meta property="og:updated_time" content="2019-03-08T15:49:42.068Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="07-渲染&#x2F;运行&#x2F;性能&#x2F;监控">
 <meta name="twitter:image" content="/images/index/07.jpg">
@@ -412,8 +412,8 @@
 </ol>
 </li>
 <li>defer与async区别：<ol>
-<li>defer在HTML解析完之后执行，按加载顺序执行</li>
-<li>async在其加载完后立即执行，执行顺序与加载顺序无关</li>
+<li>defer在HTML解析完之后执行(PS：如果有同步 js，则会等同步的 js 执行完后再执行)，按加载顺序执行</li>
+<li>async在其加载完后就立即执行，执行顺序与加载顺序无关</li>
 </ol>
 </li>
 </ol>
@@ -421,7 +421,7 @@
 <li><p>缓存分类：</p>
 <ol>
 <li><p>强缓存：</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Expires Expires:Thu, 21 Jan 2017...</div><div class="line">Cache-Control Cache-COntrol:max-age=3600</div></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Expires Expires:Thu, 21 Jan 2017... // 这里是服务端时间，客户端时间可能和服务端时间不一致</div><div class="line">Cache-Control Cache-Control:max-age=3600 // 这里是相对时间，优先权比 Expires 大</div></pre></td></tr></table></figure>
 </li>
 <li><p>协商缓存：</p>
  <figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Last-Modified/If-Modified-Since</span></div><div class="line"><span class="attribute">Etag/If-None-Match</span></div></pre></td></tr></table></figure>
@@ -445,16 +445,16 @@
 </ol>
 </li>
 <li>资源加载错误<ol>
-<li>资源对象.onerror</li>
+<li>资源对象.onerror，该错误不会向上冒泡</li>
 <li>document.getElementsByTagName(“…”).length - performance.getEntries().filter(item=&gt;item.initiatorType == “…”).length = 未加载的资源数</li>
-<li>window.onerror的捕获方式(冒泡不行，捕获可以)</li>
+<li>window.onerror的捕获方式，冒泡情况下获取不到错误，捕获情况下可以</li>
 </ol>
 </li>
 </ol>
 <h2 id="跨域错误"><a href="#跨域错误" class="headerlink" title="跨域错误"></a>跨域错误</h2><p>跨域的JS运行错误可以捕获吗？<br>可以，但是需要额外设置跨域选项，否则虽然会报错，但是没有报错信息<br>解决方法：</p>
 <ol>
-<li>script标签增加<code>crossorigin</code>属性</li>
-<li>设置js资源响应头<code>Access-Control-Allow-Origin:*</code></li>
+<li>客户端script标签增加<code>crossorigin</code>属性</li>
+<li>服务端设置js资源响应头<code>Access-Control-Allow-Origin:*</code></li>
 </ol>
 <h2 id="上报错误"><a href="#上报错误" class="headerlink" title="上报错误"></a>上报错误</h2><ol>
 <li>Ajax上报(不推荐)</li>
@@ -583,7 +583,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -596,7 +596,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

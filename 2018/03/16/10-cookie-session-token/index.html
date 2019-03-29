@@ -76,7 +76,7 @@
 <meta property="og:site_name" content="KokoTaの蜡像屋">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/10.jpg">
-<meta property="og:updated_time" content="2018-05-09T10:19:35.098Z">
+<meta property="og:updated_time" content="2019-03-19T18:00:49.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="10-cookie&#x2F;session&#x2F;token">
 <meta name="twitter:image" content="/images/index/10.jpg">
@@ -317,7 +317,7 @@
 <h3 id="头部-head"><a href="#头部-head" class="headerlink" title="头部(head)"></a>头部(head)</h3><p>描述jwt基本信息的对象：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  'typ': 'JWT', // token规范类型</div><div class="line">  'alg: 'HS256', // 所用加密算法</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="载荷-payLoad"><a href="#载荷-payLoad" class="headerlink" title="载荷(payLoad)"></a>载荷(payLoad)</h3><p>描述token信息的对象，包含关于用户的非敏感信息(用户名/权限):<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    "iss": "KokoTa", // 签发者</div><div class="line">    "iat": 1441593502, // 签发时间</div><div class="line">    "exp": 1441594722, // 过期时间</div><div class="line">    "aud": "www.example.com", // 接收方</div><div class="line">    "sub": "jrocket@example.com", // 用户方</div><div class="line">    "user_name": "Karo", // 用户名</div><div class="line">    "admin": true, // 用户权限</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="签名-sign"><a href="#签名-sign" class="headerlink" title="签名(sign)"></a>签名(sign)</h3><p>jwt规范规定用 <strong>base64编码后的头部.载荷</strong> + <strong>secret字符串</strong> + <strong>HS256算法加密</strong> 后的值 作为签名。<br>如果有人对头部以及载荷的内容解码之后进行修改，再进行编码的话，那么新的签名和之前的签名就将是不一样的。  </p>
-<h3 id="最终的token"><a href="#最终的token" class="headerlink" title="最终的token"></a>最终的token</h3><p>token = 头部.载荷.签名，例子如下：<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eyJ<span class="number">0</span>eXAiOiJKV<span class="number">1</span>QiLCJhbGciOiJIUzI<span class="number">1</span><span class="symbol">NiJ9</span>.eyJmc<span class="name">m9</span>tX<span class="number">3</span>VzZXIiOiJCIiwidGFyZ<span class="number">2</span>V<span class="number">0</span>X<span class="number">3</span>VzZXIiOiJBI<span class="symbol">n0</span>.rSWamyAYwuHC<span class="meta">o7</span>IFAgd<span class="number">1</span>oRpSP<span class="number">7</span><span class="symbol">nzL7</span>BF<span class="number">5</span>t<span class="number">7</span>ItqpKViM</div></pre></td></tr></table></figure></p>
+<h3 id="最终的token"><a href="#最终的token" class="headerlink" title="最终的token"></a>最终的token</h3><p>token = 头部.载荷.签名，例子如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcm9tX3VzZXIiOiJCIiwidGFyZ2V0X3VzZXIiOiJBIn0.rSWamyAYwuHCo7IFAgd1oRpSP7nzL7BF5t7ItqpKViM</div></pre></td></tr></table></figure></p>
 <h3 id="token流程"><a href="#token流程" class="headerlink" title="token流程"></a>token流程</h3><p><strong>流程解析：</strong>  </p>
 <ul>
 <li>client第一次请求 -&gt; 注册/登录 -&gt; server生成token -&gt; 放在cookie中返回给client  </li>
@@ -330,8 +330,8 @@
 <li>token的广泛用处之一是<strong>API权限控制</strong>。  </li>
 <li>客户端可以将token存储在cookie/内存/loacalStorage中。  </li>
 <li>通过给cookie的token键值对设置<code>domain=.taobao.com</code>，这样所有子域名都能接收到这个token，如果再设置一下httpOnly，那么这个token就不能被前端操作，防止了XSS攻击，但将token存放在cookie的方法无法阻止CSRF攻击，不过这个方法对于展示型网站也就足够了，比如扇贝、B站等(它们的支付都是扫码，CSRF没啥卵用)。  </li>
-<li>除了上面利用cookie传递token的方法，还可以将token加在请求/响应的header中传递。前者会发生CSRF问题，因为点击诱导连接后，cookie被自动发送，而cookie中含有token，server直接验证通过后就发生操作了；但后者不会，因为诱导连接不能操作cookie，cookie只能在本域下操作，我们让本域操作cookie并提取token(或者token存储在localStorage中，让本域取出)，再将其添加到请求头中发送，server验证请求头的token而不是验证cookie中的token，这样就避免了token被自动传递识别的问题，然而这又会发生XSS问题(某些浏览器会禁用XSS攻击)。  </li>
-<li>由上一点可知，普通的查询、展示、浏览，可以直接用token进行身份验证，而当进行提交表单或其他重要操作时，不能因为client保存了用户状态就认为是用户本人操作。这些重要请求需要在本域中进行加工后再发送给server，而server也要对这些信息进行相应的验证。  </li>
+<li>除了上面利用cookie传递token的方法，还可以将token加在请求/响应的header中传递。前者会发生CSRF问题，因为点击诱导连接后，cookie被自动发送，而cookie中含有token，server直接验证通过后就发生操作了；但后者不会，因为诱导连接不能操作cookie，cookie只能在本域下操作，我们让本域操作cookie并提取token(或者token存储在localStorage中，让本域取出)，再将其添加到请求头中发送，server验证请求头的token而不是验证cookie中的token，这样就避免了token被自动传递识别的问题，然而这又会发生XSS问题(高级浏览器会自己禁用XSS攻击，另外如果使用框架的话也无需担心XSS攻击)。  </li>
+<li>由上一点可知，普通的查询、展示、浏览，可以直接用token进行身份验证，而当进行提交表单或其他重要操作时，不能因为client保存了用户状态就认为是用户本人操作。这些重要请求需要在本域中进行加工后(比如请求中加上服务端渲染页面时给的随机字符串，或者请求中加上按照某种约定生成的字符串)再发送给server，而server也要对这些信息进行相应的验证。  </li>
 <li><a href="https://segmentfault.com/q/1010000008366262" target="_blank" rel="external">关于如何实现异地登陆后，本地被踢出并提示重新登录的方法</a></li>
 </ol>
 <h3 id="token总结"><a href="#token总结" class="headerlink" title="token总结"></a>token总结</h3><ol>
@@ -468,7 +468,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -481,7 +481,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -354,7 +354,7 @@
 <p>好了，通过上面步骤我们把域名对应到了公网IP，但此时我们还无法通过域名进行访问，因为我们的服务器还没处理通过域名访问的情况。不过在解决问题之前，我们先来安装一下数据库，这里使用的是MongoDB。通过 <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="external">MongoDB 安装文档</a> 我们可以很方便的就安装好数据库。下载的时候可能会失败，很有可能是下载源的问题，可以打开 <code>/etc/apt/apt.conf</code> 把内容注释掉后再重新走一遍文档流程看看。  </p>
 <p><strong>PS</strong>：通常来说需要两台服务器，一台放应用，一台放数据，这里由于自己是吃土少年，所以就把应用和数据都放在同一个服务器上了。  </p>
 <p>OK，按文档走到第四步时，我们可能会发现，下载速度好慢！这是因为我们默认的源是 MongoDB 官网的源，你懂的，外网环境。所以如果实在等不了，我们就可以尝试切换 MongoDB 的下载源。通过进入 <code>/etc/apt/sources.list.d</code> 打开 <code>mongodb-org-3.6.list</code> 文件，修改源为 <code>mirrors.aliyun.com/mongodb/apt/ubuntu</code>，就可以快速下载啦！  </p>
-<p>下载完成，根据文档启动 MongoDB，然后我们输入 <code>mongo</code> 来看看是否启动了数据库。<br>此时我们会发现我们无法连接到数据库，因为我们的防火墙没有允许本地连接 <code>27017</code> 这个端口，我们需要修改防火墙配置。<br>打开 iptables 配置文件， <code>sudo vi /etc/iptables.up.rules</code>，然后在 <code># accept ping ...</code> 这条规则后面添加新配置<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># accept mongodb connect</div><div class="line">-A INPUT -s <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -p tcp --destination-port <span class="number">27017</span> -m <span class="section">state</span> --<span class="section">state</span> NEW,ESTABLISHED -j ACCEPT</div><div class="line">-A OUTPUT -d <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -p tcp --destination-port <span class="number">27017</span> -m <span class="section">state</span> --<span class="section">state</span> NEW,ESTABLISHED -j ACCEPT</div></pre></td></tr></table></figure></p>
+<p>下载完成，根据文档启动 MongoDB，然后我们输入 <code>mongo</code> 来看看是否启动了数据库。<br>此时我们会发现我们无法连接到数据库，因为我们的防火墙没有允许本地连接 <code>27017</code> 这个端口，我们需要修改防火墙配置。<br>打开 iptables 配置文件， <code>sudo vi /etc/iptables.up.rules</code>，然后在 <code># accept ping ...</code> 这条规则后面添加新配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># accept mongodb connect</div><div class="line">-A INPUT -s 127.0.0.1 -p tcp --destination-port 27017 -m state --state NEW,ESTABLISHED -j ACCEPT</div><div class="line">-A OUTPUT -d 127.0.0.1 -p tcp --destination-port 27017 -m state --state NEW,ESTABLISHED -j ACCEPT</div></pre></td></tr></table></figure></p>
 <p>然后关联配置， <code>sudo iptables-restore &lt; /etc/iptables.up.rules</code>。<br>接着我们再次输入 <code>mongo</code>，连接成功！  </p>
 <p>OK，但问题来了，全世界的人都知道 MongoDB 默认连接的就是 27017 端口，我们需要修改这个端口。<br>打开 MongoDB 配置文件， <code>sudo vi /etc/mongod.conf</code>，修改端口后保存，同理，iptables 的配置也需要修改、关联。<br>搞定后我们不能用 <code>mongo</code> 来连接，因为这个指令是简化版的，是连接 27017 端口的，我们需要输入 <code>mongo --port 端口号</code> 来进行连接。<br>好了，我们现在完成了数据库的安装和连接了！  </p>
 <h2 id="数据库数据同步和数据库权限"><a href="#数据库数据同步和数据库权限" class="headerlink" title="数据库数据同步和数据库权限"></a>数据库数据同步和数据库权限</h2><p>OK，数据库是连上了，但是这个数据库是空的，我们如何将本地数据同步到线上呢？<br>MongoDB 等数据库是支持数据导入的，基本思想就是：本地数据打包成压缩包 -&gt; 上传到服务器 -&gt; 服务器解压 -&gt; 解压文件导入数据库。<br>这里介绍两种导入方式，一种是数据库级别的导入，一种是表单级别的导入：  </p>
@@ -382,7 +382,7 @@
 <p>现在我们来发布项目，输入 <code>pm2 deploy ecosystem.json production(部署方法名)</code> 可发布项目。<br>然而又报错了= =  <code>pm2: command not found</code>，原因是 pm2 没有开启 ssh 远程交互模式，所以没法调用服务器那头的 pm2，我们来更改一下配置吧。<br>回到角色根目录 <code>cd</code> ， <code>vi .bashrc</code> 打开文件，把 <code>If not running...</code> 下的四行代码注释掉并保存。<br>重新加载它 <code>source .bashrc</code>。<br>然后重新发布。<br>发现又报错了，原来是本地的 <strong>ecosystem.json</strong> 得提交到远程服务器啊，让我们提交后再试一次。  </p>
 <p>我们这次就发布成功了，让我们在终端输入 <code>pm2 list</code> 查看状态。<br>此时有可能会出现 status errored，可以输入 <code>pm2 logs</code> 查看日志并进行项目调整。  </p>
 <p>OK，项目发布成功后我们还得调整 nginx 和 iptables 的配置。<br>因为这次发布的项目要关联域名，并且项目是监听 3000 端口的，我们需要允许这个端口开放。  </p>
-<p>nginx 修改的地方就是将 <code>server_name</code> 的值改为域名。<br>iptables 修改的地方就是添加如下代码，允许 3000 端口的输入输出：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># accept <span class="number">3000</span> port entry and output</div><div class="line">-A INPUT -s <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -p tcp --destination-port <span class="number">3000</span> -m <span class="section">state</span> --<span class="section">state</span> NEW,ESTABLISHED -j ACCEPT</div><div class="line">-A OUTPUT -d <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -p tcp --destination-port <span class="number">3000</span> -m <span class="section">state</span> --<span class="section">state</span> ESTABLISHED -j ACCEPT</div></pre></td></tr></table></figure></p>
+<p>nginx 修改的地方就是将 <code>server_name</code> 的值改为域名。<br>iptables 修改的地方就是添加如下代码，允许 3000 端口的输入输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># accept 3000 port entry and output</div><div class="line">-A INPUT -s 127.0.0.1 -p tcp --destination-port 3000 -m state --state NEW,ESTABLISHED -j ACCEPT</div><div class="line">-A OUTPUT -d 127.0.0.1 -p tcp --destination-port 3000 -m state --state ESTABLISHED -j ACCEPT</div></pre></td></tr></table></figure></p>
 <p>当进行多个项目发布时，同理。<br>这样，我们的项目就能用域名访问啦！  </p>
 <p>当然，我们在部署时是分 开发环境(development) 和 生产环境(production) 的，MongoDB数据库的连接需要区分环境，<br>开发时连接本地数据库，生产时连接服务器数据库，代码类似：<br><img src="/images/server-build/MongoDB连接.jpg" alt="MongoDB连接"></p>
 <p>完结撒花！  </p>
@@ -535,7 +535,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -548,7 +548,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -53,7 +53,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hybrid," />
 
 
 
@@ -69,17 +69,17 @@
 
 
 
-<meta name="description" content="随性地记述，懒散地放空">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KokoTaの蜡像屋">
-<meta property="og:url" content="/tags/index.html">
+<meta name="keywords" content="Hybrid">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20-混合开发">
+<meta property="og:url" content="/2019/03/29/20-混合开发/index.html">
 <meta property="og:site_name" content="KokoTaの蜡像屋">
-<meta property="og:description" content="随性地记述，懒散地放空">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-23T06:38:30.020Z">
+<meta property="og:image" content="/images/index/20.jpg">
+<meta property="og:updated_time" content="2019-03-29T14:05:13.880Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KokoTaの蜡像屋">
-<meta name="twitter:description" content="随性地记述，懒散地放空">
+<meta name="twitter:title" content="20-混合开发">
+<meta name="twitter:image" content="/images/index/20.jpg">
 
 
 
@@ -109,13 +109,13 @@
 
 
 
-  <link rel="canonical" href="/tags/"/>
+  <link rel="canonical" href="/2019/03/29/20-混合开发/"/>
 
 
 
 
 
-  <title>标签 | KokoTaの蜡像屋</title>
+  <title>20-混合开发 | KokoTaの蜡像屋</title>
   
 
 
@@ -220,40 +220,187 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/2019/03/29/20-混合开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KokoTa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KokoTaの蜡像屋">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline"></h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 11 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Babylon-js/" style="font-size: 12px; color: #ccc">Babylon.js</a> <a href="/tags/HTML-CSS/" style="font-size: 12px; color: #ccc">HTML/CSS</a> <a href="/tags/Hybrid/" style="font-size: 12px; color: #ccc">Hybrid</a> <a href="/tags/JavaScript/" style="font-size: 30px; color: #111">JavaScript</a> <a href="/tags/Wechat/" style="font-size: 12px; color: #ccc">Wechat</a> <a href="/tags/前端工程/" style="font-size: 21px; color: #6f6f6f">前端工程</a> <a href="/tags/前端总集/" style="font-size: 12px; color: #ccc">前端总集</a> <a href="/tags/后端总集/" style="font-size: 12px; color: #ccc">后端总集</a> <a href="/tags/数据结构/" style="font-size: 12px; color: #ccc">数据结构</a> <a href="/tags/网络/" style="font-size: 30px; color: #111">网络</a> <a href="/tags/设计模式/" style="font-size: 12px; color: #ccc">设计模式</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">20-混合开发</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T19:11:18+08:00">
+                2019-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p><img src="/images/index/20.jpg"><br><a id="more"></a></p>
+<h1 id="混合开发"><a href="#混合开发" class="headerlink" title="混合开发"></a>混合开发</h1><p>混合开发可以理解为前端跨端开发，比如：</p>
+<p>Android/IOS 端可以用 Cordova/React Native 实现</p>
+<p>PC/Mac 端可以用 Electron 实现</p>
+<h2 id="Cordova"><a href="#Cordova" class="headerlink" title="Cordova"></a>Cordova</h2><p>移动端混合开发的最简便方式，便是使用 Cordova，一个提供了 native api 及项目打包的工具库。</p>
+<p>使用 Cordova 打包的应用其实就是一个拥有 native 功能的 web app，它运行于移动端的 webview 上。</p>
+<p>这里介绍使用 Vue + Cordova 构建一个简易混合 APP 应用：</p>
+<ol>
+<li><p><code>npm install -g @vue/cli</code> 安装 vue-cli</p>
+</li>
+<li><p><code>vue create hybrid</code> 创建 vue 项目</p>
+</li>
+<li><p><code>npm install -g cordova</code> 安装 cordova</p>
+</li>
+<li><p>进入 vue 项目并执行 <code>cordova create app</code> 新建 cordova 项目</p>
+</li>
+<li><p>进入 cordova 项目并添加对应的平台插件 <code>cordova platform add browser</code>、<code>cordova platform add android</code> 等</p>
+</li>
+<li><p>添加<a href="https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html" target="_blank" rel="external">安卓环境</a>：</p>
+<ol>
+<li>Java JDK 1.8</li>
+<li>Gradle</li>
+<li>Android Studio + Android SDK(版本要对上) + Android AVD</li>
+<li>设置环境变量(JAVA_HOME/ANDROID_HOME等)</li>
+</ol>
+</li>
+<li><p>添加 cordova 插件，比如 <code>cordova plugin add cordova-plugin-geolocation</code> 等</p>
+</li>
+<li><p>回到上级，编写项目逻辑，同时引入 cordova 插件的写法来完成 native 功能</p>
+</li>
+<li><p>新建 vue 构建文件 vue.config.js，更改配置：</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  outputDir: <span class="string">'./app/www'</span>, <span class="comment">// 把构建后的文件放入 cordval 的 www 文件夹中</span></div><div class="line">  publicPath: <span class="string">'./'</span>, <span class="comment">//用户部署的基本url,如果不配置默认为部署所在域的根目录，如果不要部署到子路径，则需要配置该项。如果设为空，转移后的使用相对路径引用文件。并且将所有的css js都放到了根目录</span></div><div class="line">  productionSourceMap: <span class="literal">false</span>, <span class="comment">//不生成map</span></div><div class="line">  runtimeCompiler: <span class="literal">true</span> <span class="comment">// 包含运行时编译器的 Vue 构建版本</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在 vue 的 index.html 中添加 <code>&lt;script src=&quot;cordova.js&quot;&gt;&lt;/script&gt;</code></p>
+</li>
+<li><p>进入 cordova 项目并执行 <code>cordova run android</code> 来进行调试</p>
+</li>
+</ol>
+<p>通过以上方式，我们会发现如果不调用 native api 而是单纯的 web 开发，开发效率还是挺高的</p>
+<p>但是如果牵涉到 native api 时，开发效率就会降一大截，因为我们每次修改代码都需要 <code>npm run build</code> <code>cordova run android</code> 来进行调试</p>
+<p>总的来说，webview 下运行的 app 性能较差，只适合一些简单的、展示性的场景</p>
+<p><a href="">实例地址</a></p>
+<h2 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h2><p>如果追求性能，那么果断推荐 React Native，相比于 Cordova，开发效率更高、应用性能也更高、原理上也更底层</p>
+<p>待续…</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hybrid/" rel="tag"># Hybrid</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/10/19-MVVM/" rel="next" title="19-MVVM">
+                <i class="fa fa-chevron-left"></i> 19-MVVM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -286,8 +433,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -355,6 +511,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#混合开发"><span class="nav-number">1.</span> <span class="nav-text">混合开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cordova"><span class="nav-number">1.1.</span> <span class="nav-text">Cordova</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Native"><span class="nav-number">1.2.</span> <span class="nav-text">React Native</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
