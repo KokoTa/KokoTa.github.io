@@ -93,8 +93,8 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcm9tX3VzZXIiOiJCIiwidGFyZ2V0X3VzZXIiOiJ
 1. token的广泛用处之一是**API权限控制**。  
 2. 客户端可以将token存储在cookie/内存/loacalStorage中。  
 3. 通过给cookie的token键值对设置`domain=.taobao.com`，这样所有子域名都能接收到这个token，如果再设置一下httpOnly，那么这个token就不能被前端操作，防止了XSS攻击，但将token存放在cookie的方法无法阻止CSRF攻击，不过这个方法对于展示型网站也就足够了，比如扇贝、B站等(它们的支付都是扫码，CSRF没啥卵用)。  
-4. 除了上面利用cookie传递token的方法，还可以将token加在请求/响应的header中传递。前者会发生CSRF问题，因为点击诱导连接后，cookie被自动发送，而cookie中含有token，server直接验证通过后就发生操作了；但后者不会，因为诱导连接不能操作cookie，cookie只能在本域下操作，我们让本域操作cookie并提取token(或者token存储在localStorage中，让本域取出)，再将其添加到请求头中发送，server验证请求头的token而不是验证cookie中的token，这样就避免了token被自动传递识别的问题，然而这又会发生XSS问题(某些浏览器会禁用XSS攻击)。  
-5. 由上一点可知，普通的查询、展示、浏览，可以直接用token进行身份验证，而当进行提交表单或其他重要操作时，不能因为client保存了用户状态就认为是用户本人操作。这些重要请求需要在本域中进行加工后再发送给server，而server也要对这些信息进行相应的验证。  
+4. 除了上面利用cookie传递token的方法，还可以将token加在请求/响应的header中传递。前者会发生CSRF问题，因为点击诱导连接后，cookie被自动发送，而cookie中含有token，server直接验证通过后就发生操作了；但后者不会，因为诱导连接不能操作cookie，cookie只能在本域下操作，我们让本域操作cookie并提取token(或者token存储在localStorage中，让本域取出)，再将其添加到请求头中发送，server验证请求头的token而不是验证cookie中的token，这样就避免了token被自动传递识别的问题，然而这又会发生XSS问题(高级浏览器会自己禁用XSS攻击，另外如果使用框架的话也无需担心XSS攻击)。  
+5. 由上一点可知，普通的查询、展示、浏览，可以直接用token进行身份验证，而当进行提交表单或其他重要操作时，不能因为client保存了用户状态就认为是用户本人操作。这些重要请求需要在本域中进行加工后(比如请求中加上服务端渲染页面时给的随机字符串，或者请求中加上按照某种约定生成的字符串)再发送给server，而server也要对这些信息进行相应的验证。  
 6. [关于如何实现异地登陆后，本地被踢出并提示重新登录的方法](https://segmentfault.com/q/1010000008366262)
 
 ### token总结
