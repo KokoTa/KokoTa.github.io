@@ -76,7 +76,7 @@
 <meta property="og:site_name" content="KokoTaの蜡像屋">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/10.jpg">
-<meta property="og:updated_time" content="2019-03-19T18:00:49.178Z">
+<meta property="og:updated_time" content="2019-04-21T05:55:15.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="10-cookie&#x2F;session&#x2F;token">
 <meta name="twitter:image" content="/images/index/10.jpg">
@@ -334,10 +334,18 @@
 <li>由上一点可知，普通的查询、展示、浏览，可以直接用token进行身份验证，而当进行提交表单或其他重要操作时，不能因为client保存了用户状态就认为是用户本人操作。这些重要请求需要在本域中进行加工后(比如请求中加上服务端渲染页面时给的随机字符串，或者请求中加上按照某种约定生成的字符串)再发送给server，而server也要对这些信息进行相应的验证。  </li>
 <li><a href="https://segmentfault.com/q/1010000008366262" target="_blank" rel="external">关于如何实现异地登陆后，本地被踢出并提示重新登录的方法</a></li>
 </ol>
-<h3 id="token总结"><a href="#token总结" class="headerlink" title="token总结"></a>token总结</h3><ol>
-<li>解决了session占用内存大的问题。因为只保存密码等敏感信息，其余的非敏感信息都存储在token中。  </li>
-<li>解决了单点登录的问题。见token流程解析3，注意把token存储在localStorage是不能解决单点问题的，因为localStorage不可跨域。其他解决单点登录的方法见<a href="https://cnodejs.org/topic/55f6e69904556da7553d20dd" target="_blank" rel="external">链接</a>  </li>
-<li>缺点就是使server有计算压力（例如加密、编码和解码）。  </li>
+<h3 id="token总结"><a href="#token总结" class="headerlink" title="token总结"></a>token总结</h3><p>优点：</p>
+<ol>
+<li>解决了session占用内存大的问题。因为只保存密码等敏感信息，其余的非敏感信息都存储在token中。</li>
+<li>解决了单点登录的问题。见token流程解析3，注意把token存储在localStorage是不能解决单点问题的，因为localStorage不可跨域。其他解决单点登录的方法见<a href="https://cnodejs.org/topic/55f6e69904556da7553d20dd" target="_blank" rel="external">链接</a></li>
+<li>可以预防CSRF攻击</li>
+<li>结构简单(JSON)，便于传输</li>
+<li>跨语言支持(JAVA、PHP等)</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>缺点就是使server有计算压力（例如加密、编码和解码）。</li>
+<li>session 有的问题 token 也有，比如泄露问题(使用 HTTPS 解决)、重放攻击问题(<a href="https://blog.csdn.net/koastal/article/details/53456696" target="_blank" rel="external">解决方案</a>)、续签和注销问题</li>
 </ol>
 <h3 id="状态、有状态、无状态是什么"><a href="#状态、有状态、无状态是什么" class="headerlink" title="状态、有状态、无状态是什么"></a>状态、有状态、无状态是什么</h3><ul>
 <li>状态：请求的状态是 client 与 server 交互过程中，保存下来的相关信息，client的保存在 page/request/session/application 或者全局作用域中，而 server 的一般存在 session 中。</li>
