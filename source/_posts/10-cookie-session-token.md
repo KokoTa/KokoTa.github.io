@@ -98,9 +98,16 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcm9tX3VzZXIiOiJCIiwidGFyZ2V0X3VzZXIiOiJ
 6. [关于如何实现异地登陆后，本地被踢出并提示重新登录的方法](https://segmentfault.com/q/1010000008366262)
 
 ### token总结
-1. 解决了session占用内存大的问题。因为只保存密码等敏感信息，其余的非敏感信息都存储在token中。  
-2. 解决了单点登录的问题。见token流程解析3，注意把token存储在localStorage是不能解决单点问题的，因为localStorage不可跨域。其他解决单点登录的方法见[链接](https://cnodejs.org/topic/55f6e69904556da7553d20dd)  
-2. 缺点就是使server有计算压力（例如加密、编码和解码）。  
+优点：
+1. 解决了session占用内存大的问题。因为只保存密码等敏感信息，其余的非敏感信息都存储在token中。
+2. 解决了单点登录的问题。见token流程解析3，注意把token存储在localStorage是不能解决单点问题的，因为localStorage不可跨域。其他解决单点登录的方法见[链接](https://cnodejs.org/topic/55f6e69904556da7553d20dd)
+3. 可以预防CSRF攻击
+4. 结构简单(JSON)，便于传输
+5. 跨语言支持(JAVA、PHP等)
+
+缺点：
+1. 缺点就是使server有计算压力（例如加密、编码和解码）。
+2. session 有的问题 token 也有，比如泄露问题(使用 HTTPS 解决)、重放攻击问题([解决方案](https://blog.csdn.net/koastal/article/details/53456696))、续签和注销问题
 
 ### 状态、有状态、无状态是什么
 * 状态：请求的状态是 client 与 server 交互过程中，保存下来的相关信息，client的保存在 page/request/session/application 或者全局作用域中，而 server 的一般存在 session 中。
