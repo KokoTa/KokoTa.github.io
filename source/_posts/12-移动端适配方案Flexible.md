@@ -152,6 +152,7 @@ dpr = 1 时，字号16px；dpr = 2 时，字号16px * 2。
 
 # 参考
 
+[移动端布局概念](https://juejin.im/post/5b39905351882574c72f2808#heading-21)
 [手淘移动端适配方案](http://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html)  
 [移动端上的设计和适配](http://www.w3cplus.com/mobile/mobile-design-and-adapter.html)  
 [移动端高清、多屏适配方案](https://div.io/topic/1092)
