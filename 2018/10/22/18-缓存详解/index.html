@@ -77,7 +77,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/18.jpg">
 <meta property="og:image" content="/images/缓存策略.jpg">
-<meta property="og:updated_time" content="2019-01-09T14:09:03.714Z">
+<meta property="og:updated_time" content="2019-05-17T08:44:17.660Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="18-缓存详解">
 <meta name="twitter:image" content="/images/index/18.jpg">
@@ -337,12 +337,54 @@
 <p>其中这里有一个疑问：<code>max-age=0</code> 和 <code>no-cache</code> 等价吗？从规范的字面意思来说，max-age 到期是 应该(SHOULD) 重新验证，而 no-cache 是 必须(MUST) 重新验证。但实际情况以浏览器实现为准，大部分情况他们俩的行为还是一致的。（如果是 max-age=0, must-revalidate 就和 no-cache 等价了）</p>
 <p>PS1：<code>must-revalidate</code> 加和不加的效果其实是一样的，就算不加浏览器也会自动帮你加。</p>
 <p>PS2：<code>no-cache</code> 虽然字面意义是 “不要缓存”。但它实际上的机制是，仍然对资源使用缓存，但每一次在使用缓存之前必须（MUST）向服务器对缓存资源进行验证，如果验证通过就读取缓存，验证不通过就把旧缓存删了重新获取资源。</p>
-<p>PS3：Chrome 默认的缓存时间为 <code>DEFAULT_CACHE_TIME = 300</code>，即 5 分钟，这意味着所有资源除非特殊指定，都会进行缓存。</p>
+<p>PS3：Chrome 默认的缓存时间为 <code>DEFAULT_CACHE_TIME = 300</code>，即 5 分钟，这意味着所有资源除非特殊指定，都会进行缓存。对于其他浏览器，可能会采用一个启发式的算法，通常会取响应头中的 Date 减去 Last-Modified 值的 10% 作为缓存时间</p>
 <p>PS4：<code>max-age</code> 是在浏览器清除缓存时起作用的字段，表示一定时间内不用请求，直接读取缓存。但如果我们手动清除浏览器缓存后，max-age 也就没什么用了，还是得发送请求获取数据。<code>max-age</code> 和 <code>no-cache</code> 不能同时存在，通过 PS3 大概可以知道 no-cache 的缓存大概是 5 分钟。</p>
 <p>关于如何使用字段的图例见下：</p>
 <p><img src="/images/缓存策略.jpg" alt="缓存策略"></p>
 <p>顺带一提，在 HTTP/1.1 之前，如果想使用 no-cache，通常是使用 Pragma 字段，如 Pragma: no-cache (这也是 Pragma 字段唯一的取值)。但是这个字段只是浏览器约定俗成的实现，并没有确切规范，因此缺乏可靠性。它应该只作为一个兼容字段出现，在当前的网络环境下其实用处已经很小。</p>
 <p>Cache-control 的优先级高于 Expires，为了兼容性考虑，实际项目中两个字段都会设置。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public</td>
+<td style="text-align:center">表示响应可以被客户端&amp;&amp;服务器端缓存</td>
+</tr>
+<tr>
+<td>private</td>
+<td style="text-align:center">只能被客户端缓存</td>
+</tr>
+<tr>
+<td>max-age=30</td>
+<td style="text-align:center">缓存30s后过期，需要重新请求</td>
+</tr>
+<tr>
+<td>s-maxage=30</td>
+<td style="text-align:center">盖max-age，作用同上，只在【代理服务器】生效</td>
+</tr>
+<tr>
+<td>no-store</td>
+<td style="text-align:center">不存</td>
+</tr>
+<tr>
+<td>no-cache</td>
+<td style="text-align:center">缓存并立即失效，下次验证是否过期</td>
+</tr>
+<tr>
+<td>max-stale=30</td>
+<td style="text-align:center">30s内即使失效也用</td>
+</tr>
+<tr>
+<td>min-fresh</td>
+<td style="text-align:center">希望在30s内获取最新的响应</td>
+</tr>
+</tbody>
+</table>
 <h3 id="对比缓存"><a href="#对比缓存" class="headerlink" title="对比缓存"></a>对比缓存</h3><p>当强制缓存失效(超过规定时间)时，就需要使用对比缓存，由服务器决定缓存内容是否失效。</p>
 <p>对比缓存也是要发送请求的，它主要的优点是可以节省返回的响应体 (比如想要浏览器读取缓存，直接返回 304 状态码就可以了)。</p>
 <p>对比缓存有两组字段：<code>Last-Modified &amp; If-Modified-Since</code> 和 <code>Etag &amp; If-None-Match</code></p>
