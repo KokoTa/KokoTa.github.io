@@ -78,7 +78,7 @@
 <meta property="og:image" content="/images/index/09.jpg">
 <meta property="og:image" content="/images/数字证书.jpg">
 <meta property="og:image" content="/images/HTTPS流程.jpg">
-<meta property="og:updated_time" content="2018-05-09T10:19:35.096Z">
+<meta property="og:updated_time" content="2019-06-20T07:48:48.765Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="09-HTTPS">
 <meta name="twitter:image" content="/images/index/09.jpg">
@@ -314,25 +314,26 @@
 <h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><ol>
 <li>共享密钥加密：客户端和服务器用同一个密钥加密和解密信息，但这有一个大问题：如何把这个密钥传给没有密钥的一方？要是被中间人截取了，那这个加密就形同虚设了。</li>
 <li>公钥私钥加密：即两把密钥，公钥发给你(用于加密)，私钥留自己(用于解密)。公钥随便给，反正解密的权利在我手上，这样就解决了中间人问题，反正拿了公钥也解密不了信息。</li>
-<li>HTTPS的加密：因为公钥私钥的效率差，所以HTTPS采用了上面两者结合的方式。我用你发给我的公钥加密共享密钥 -&gt; 你用你的私钥解析拿到共享密钥 -&gt; 然后你处理了一下共享密钥 -&gt; 你用我给你的公钥加密共享密钥 -&gt; 我用我的私钥解析拿到共享密钥 -&gt; 我俩愉快的用共享密钥进行加密解密通信。</li>
+<li>证书的签名和验证：和公钥私钥同理，私钥(签发机构给的)负责签名，公钥(浏览器内置的)负责验证。</li>
 </ol>
-<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p>通过加密，安全问题就解决了吗？NONONO！这里还存在一个严重问题：你怎么知道我发给你的公钥是我的公钥呢？会不会是被别人截取后替换的公钥呢？<br>这个问题交给证书吧，它可以保证公钥的合法性。（然而还是不能完全保证）<br>证书类似公钥的身份证，由可信任的第三方公司（认证公司）颁发，使用证书的流程如图：<br><img src="/images/数字证书.jpg" alt="数字证书"></p>
+<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p>通过加密，安全问题就解决了吗？NONONO！这里还存在一个严重问题：你怎么知道我发给你的公钥是我的公钥呢？会不会是被别人截取后替换的公钥呢？<br>这个问题交给证书吧，它可以保证公钥的合法性。（然而还是不能完全保证，比如签发机构自身出事了）<br>证书类似公钥的身份证，由可信任的第三方公司（认证公司）颁发，使用证书的流程如图：<br><img src="/images/数字证书.jpg" alt="数字证书"></p>
 <h3 id="完整性保护"><a href="#完整性保护" class="headerlink" title="完整性保护"></a>完整性保护</h3><p>HTTPS情况下，应用层发送数据时会附加一种叫做MAC(Message Authentication Code)的报文摘要，可以查知报文是否被篡改，从而保证了报文完整性。</p>
 <h2 id="HTTPS通信流程"><a href="#HTTPS通信流程" class="headerlink" title="HTTPS通信流程"></a>HTTPS通信流程</h2><p><img src="/images/HTTPS流程.jpg" alt="HTPPS流程"></p>
 <ol>
-<li>客户端表示要开始SSL通信了，报文中包含指定的SSL版本和加密组件列表</li>
-<li>服务器表示OK，返回SSL版本和加密组件</li>
-<li>服务器发送公钥证书</li>
-<li>服务器通知客户端SSL第一次握手结束</li>
-<li>客户端生成pre-master secret(一串随机数)，利用取出的公钥加密后发送给服务端</li>
-<li>客户端提示服务端在此之后的通信采用pre-master secret密钥加密</li>
-<li>客户端发送包含连接至今全部报文的整体校验值，如果服务器解密成功，则握手成功</li>
+<li>客户端发送 Client Hello，表示要开始 SSL 通信。报文中包含 SSL 版本、支持的加密算法等。</li>
+<li>服务端发送 Server Hello，表示可以进行 SSL 通信。报文中包含具体的 SSL 版本、选择的加密算法等。</li>
+<li>服务器发送 Certificate，即发送公钥证书</li>
+<li>服务器发送 Server Hello Done，通知客户端SSL第一次握手结束</li>
+<li>客户端发送 Client Key Exchange，发送由客户端生成的 pre-master secret(一串随机数)，该随机数利用步骤 3 的公钥加密</li>
+<li>客户端发送 Change Cipher Spec，表示后续的通讯会用这个随机数来进行加密</li>
+<li>客户端发送 Finished，包含连接至今全部报文的整体校验值，如果服务器解密成功，则该次握手成功</li>
 <li>行为和6同理</li>
 <li>行为和7同理</li>
 <li>SSL建立完成，开始进行HTTP请求</li>
 <li>HTTP响应</li>
 <li>客户端断开连接</li>
 </ol>
+<p>这里我们可能会有一个问题，把证书克隆一份，其他人是不是也能拥有沟通权限了？<br>答案是否定的，原因见 <a href="https://www.zhihu.com/question/29251991/answer/580813797" target="_blank" rel="external">这里</a></p>
 
       
     </div>
