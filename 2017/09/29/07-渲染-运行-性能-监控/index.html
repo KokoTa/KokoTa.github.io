@@ -86,7 +86,7 @@
 <meta property="og:image" content="/images/运行机制.jpg">
 <meta property="og:image" content="/images/缓存1.jpg">
 <meta property="og:image" content="/images/缓存2.jpg">
-<meta property="og:updated_time" content="2019-05-28T13:42:33.360Z">
+<meta property="og:updated_time" content="2019-06-27T09:31:22.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="07-渲染&#x2F;运行&#x2F;性能&#x2F;监控">
 <meta name="twitter:image" content="/images/index/07.jpg">
@@ -475,19 +475,8 @@
 </ul>
 <p>可用 chrome 中的 timeline 进行内存标记，可视化查看内存的变化情况，找出异常点</p>
 <h1 id="错误监控"><a href="#错误监控" class="headerlink" title="错误监控"></a>错误监控</h1><p>我：我错了。<br>他：我知道。<br>我：？？？<br>他：我已经学会了“知道一个废柴是否会犯错”的能力。</p>
-<h2 id="错误分类及错误捕获方式"><a href="#错误分类及错误捕获方式" class="headerlink" title="错误分类及错误捕获方式"></a>错误分类及错误捕获方式</h2><ol>
-<li>代码错误<ol>
-<li>try..catch</li>
-<li>window.onerror</li>
-</ol>
-</li>
-<li>资源加载错误<ol>
-<li>资源对象.onerror，该错误不会向上冒泡</li>
-<li>document.getElementsByTagName(“…”).length - performance.getEntries().filter(item=&gt;item.initiatorType == “…”).length = 未加载的资源数</li>
-<li>window.onerror的捕获方式，冒泡情况下获取不到错误，捕获情况下可以</li>
-</ol>
-</li>
-</ol>
+<h2 id="错误分类及错误捕获方式"><a href="#错误分类及错误捕获方式" class="headerlink" title="错误分类及错误捕获方式"></a>错误分类及错误捕获方式</h2><p>错误分为 代码错误 和 资源加载错误，错误捕获的方式有：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 代码捕获：</span></div><div class="line"><span class="built_in">window</span>.onerror = <span class="function">(<span class="params">e</span>) =&gt;</span> <span class="built_in">console</span>.log(e, <span class="number">1</span>)</div><div class="line"><span class="comment">// 资源捕获，该错误不会向上冒泡：</span></div><div class="line">资源对象.onerror</div><div class="line"></div><div class="line"><span class="comment">// 代码捕获 + 资源捕获，冒泡情况下获取不到错误，捕获情况下可以：</span></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(event);</div><div class="line">&#125;, <span class="literal">true</span>)</div><div class="line"></div><div class="line"><span class="comment">// 捕获未 catch 的 Promise：</span></div><div class="line"><span class="built_in">window</span>.onunhandledrejection = <span class="function">(<span class="params">e</span>) =&gt;</span> <span class="built_in">console</span>.log(e)</div><div class="line"></div><div class="line"><span class="comment">// 获取未加载的资源数量：</span></div><div class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">"type"</span>).length - performance.getEntries().filter(<span class="function"><span class="params">item</span>=&gt;</span>item.initiatorType == <span class="string">"type"</span>).length = 未加载的资源数</div><div class="line"></div><div class="line"><span class="comment">// 重写 XMLHttpRequest 对象，监听所有的 ajax 请求：</span></div><div class="line"><span class="built_in">window</span>.XMLHttpRequest = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> XML = <span class="keyword">new</span> XMLHttpRequest()</div><div class="line">    XML.addEventListener(<span class="string">"readystatechange"</span>, () =&gt; &#123;&#125;)</div><div class="line">    XML.addEventListener(<span class="string">"error"</span>, () =&gt; &#123;&#125;)</div><div class="line">    XML.addEventListener(<span class="string">"timeout"</span>, () =&gt; &#123;&#125;)</div><div class="line">    XML.addEventListener(<span class="string">"loadstart"</span>, () =&gt; &#123;&#125;)</div><div class="line">    XML.addEventListener(<span class="string">"loadend"</span>, () =&gt; &#123;&#125;)</div><div class="line">    <span class="keyword">return</span> XML</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h2 id="跨域错误"><a href="#跨域错误" class="headerlink" title="跨域错误"></a>跨域错误</h2><p>跨域的JS运行错误可以捕获吗？<br>可以，但是需要额外设置跨域选项，否则虽然会报错，但是没有报错信息<br>解决方法：</p>
 <ol>
 <li>客户端script标签增加<code>crossorigin</code>属性</li>
