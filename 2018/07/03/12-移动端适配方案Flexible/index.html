@@ -76,7 +76,7 @@
 <meta property="og:site_name" content="KokoTaの蜡像屋">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/12.jpg">
-<meta property="og:updated_time" content="2019-07-29T16:29:45.788Z">
+<meta property="og:updated_time" content="2019-07-29T16:47:40.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="12-移动端适配方案Flexible">
 <meta name="twitter:image" content="/images/index/12.jpg">
@@ -328,9 +328,10 @@
 <p>假设设计稿宽度为 750px，我们将其分为 100份，单位为 a，同时规定 10a === 1rem，即：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>a = <span class="number">7.5</span>px</div><div class="line"><span class="number">1</span>rem = <span class="number">75</span>px</div></pre></td></tr></table></figure>
 <p>使得 html 元素的 font-size 对应 <code>font-size = 1rem = 75px</code>，<br>这样一来，对于视觉稿上的元素尺寸，只需要遵循 <code>rem值 * rem基准值 = 原始的px值</code> 的公式即可。<br>例如，750px 设计稿下的尺寸 <code>150px * 150px</code> 将被转换为 <code>2rem * 2rem</code>。  </p>
-<p>当然，上面的情况是假设 <code>设备分辨率宽度 = 750</code>，即设计稿是 750px 的情况，然而不同移动端设备分辨率宽度也是不同的。<br>举个栗子，iphone6（dpr=2, 414x763）的设备下，1rem 是多少值呢？<br>通过公式可以知道，<code>414 x 2 / 10 = 82.8</code>，即 <code>font-size = 1rem = 82.8px</code>。  </p>
-<p>通过 <code>rem值 * rem基准值 = 原始的px值</code> 这个公式，我们可以知道 rem值 是固定的，rem基准值 和 原始的px值 成正相关，即基准值越大，原始px值 越大。当然，rem基准值 的计算是通过 设备分辨率宽度 得到的，不同设备其 rem基准值 不同，也就导致 原始px值 不同，这也是自适应布局的本质原理。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>OK，现在就是根据设计稿来写样式了。<br>但问题来了，难道我每次都要手动 <code>原始的px值/rem基准值</code> 计算得到 rem？<br>当然不是，我们可以通过安装 <a href="https://github.com/flashlizi/cssrem" target="_blank" rel="external">CSSREM</a> 插件来使 px -&gt; rem（通常我们的设计稿是 750px，那么其 rem基准值 应设为 75px）。<br>或者利用 SCSS 的混合器或 postcss 来进行换算。  </p>
+<p>当然，上面的情况是假设 <code>设备分辨率宽度 = 750</code>，即设计稿是 750px 的情况，然而不同移动端设备分辨率宽度也是不同的。<br>举个栗子，iphone6（dpr=2, 414x763）的设备下，1rem 是多少 px 呢？<br>通过公式可以知道，<code>414 x 2 / 10 = 82.8</code>，即 <code>font-size = 1rem = 82.8px</code>。  </p>
+<p>通过 <code>rem值 * rem基准值 = 原始的px值</code> 这个公式，我们可以知道 rem值 是<strong>固定</strong>的，rem基准值 和 原始的px值 成正相关，即基准值越大，原始px值越大，反之亦然。<br>rem基准值 的计算是通过 设备分辨率宽度 得到的，不同设备其 rem基准值 不同，也就导致 原始px值 不同，这也是 Flexible 自适应布局的本质原理。Flexible 会自动帮我们计算不同设备的 rem基准值。  </p>
+<p>以上内容可知：根据公式，我们只要统一一个设计稿，然后得到 <code>rem值</code> 就可以完成自适应。  </p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>OK，现在就是根据设计稿来获取 <code>rem值</code> 了。<br>但问题来了，难道我每次都要手动 <code>原始的px值 / rem基准值</code> 计算得到 <code>rem值</code>？<br>当然不是，我们可以通过安装 <a href="https://github.com/flashlizi/cssrem" target="_blank" rel="external">CSSREM</a> 插件来使 px -&gt; rem（通常我们的设计稿是 750px，那么其 rem基准值 应设为 75px）。<br>或者利用 SCSS 的混合器或 postcss 来进行换算。  </p>
 <p>最后，对于字体来说，我们希望它不进行自动适配。<br>但由于该方案进行了视图缩放，使 dpr = 1 时，字号16px；dpr = 2 时，字号8px(视图缩放了 0.5 倍)。<br>所以这里 <strong>data-dpr</strong> 的作用就体现出来了，我们写CSS时，通过判断这个属性值来决定是否放大字体。<br>dpr = 1 时，字号16px；dpr = 2 时，字号16px * 2。<br>这样就能保证不同 dpr 下，字体显示的大小保持一致。  </p>
 <p>我们可以使用 SCSS 混合器来进行换算：  </p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">mixin</span> font-dpr($font-size)&#123; </div><div class="line">  font-size: $font-size; </div><div class="line">  <span class="selector-attr">[data-dpr="2"]</span> &amp; &#123; </div><div class="line">    <span class="attribute">font-size</span>: $font-size * <span class="number">2</span>; </div><div class="line">  &#125; </div><div class="line">  <span class="selector-attr">[data-dpr="3"]</span> &amp; &#123; </div><div class="line">    <span class="attribute">font-size</span>: $font-size * <span class="number">3</span>; </div><div class="line">  &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
