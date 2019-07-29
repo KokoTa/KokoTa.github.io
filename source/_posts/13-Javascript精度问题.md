@@ -49,7 +49,7 @@ JS 浮点数使用 64 位固定长度比特来表示，即标准的双精度(dou
 
 # 浮点数表示方法
 从 IEEE 754 规范中我们可以得到二进制浮点数的公式：  
-![image](https://user-gold-cdn.xitu.io/2017/7/10/1a6645d765dc89487b43dd35514273c9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)  
+![image](/images/浮点数公式.jpg)  
 公式以科学记数法的形式来表示，其中字母的含义和上一节相对应。  
 1. S 为符号位，`S = 0` 时，V为正；`S = 1` 时，V为负
 2. E 为指数位

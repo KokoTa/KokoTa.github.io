@@ -69,7 +69,7 @@ tags:
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 ```
 设置后我们的 visualView 就被设置为设备的宽度了，比如 375px。  
-此时如果 layoutView > 375，那么就会出现内容一出，会出现滚动条。  
+此时如果 layoutView > 375，那么就会出现内容溢出，会出现滚动条。  
 [关于 viewport 的其他内容](http://www.w3cplus.com/css/viewports.html)
 
 ## Rem
@@ -106,28 +106,28 @@ tags:
 
 这里，第 2 点和第 3 点的作用是什么呢？
 
-假如我们得设计稿宽度是 750px，flexible 将视觉稿分成了100份，单位为 a，同时规定 10a === 1rem，即：
+假设设计稿宽度为 750px，我们将其分为 100份，单位为 a，同时规定 10a === 1rem，即：
 
 ```js
 1a = 7.5px
 1rem = 75px
 ```
 
-所以最后我们这个示例的稿子整体宽度为 100a，也就是 10rem，html元素对应的 `font-size =  75px = 1rem`，  
-这样一来，对于视觉稿上的元素尺寸换算，只需要 `原始的px值 / rem基准值` 即可。  
-例如，尺寸是 `176px * 176px`，转换结果为 `2.346667rem * 2.346667rem`。  
+使得 html 元素的 font-size 对应 `font-size = 1rem = 75px`，  
+这样一来，对于视觉稿上的元素尺寸，只需要遵循 `rem值 * rem基准值 = 原始的px值` 的公式即可。  
+例如，750px 设计稿下的尺寸 `150px * 150px` 将被转换为 `2rem * 2rem`。  
 
-当然，上面的情况是假设 `设备分辨率宽度 = 750`，然而绝大部分移动端设备分辨率宽度不会是这个值。  
+当然，上面的情况是假设 `设备分辨率宽度 = 750`，即设计稿是 750px 的情况，然而不同移动端设备分辨率宽度也是不同的。  
 举个栗子，iphone6（dpr=2, 414x763）的设备下，1rem 是多少值呢？  
-通过公式可以知道，`414x2 / 10 = 82.8`，即 `font-size =  82.8px = 1rem`。  
+通过公式可以知道，`414 x 2 / 10 = 82.8`，即 `font-size = 1rem = 82.8px`。  
 
-Flexible 就是通过这种方式，使任何设备分辨率下的视图自适应、自动适配。  
+通过 `rem值 * rem基准值 = 原始的px值` 这个公式，我们可以知道 rem值 是固定的，rem基准值 和 原始的px值 成正相关，即基准值越大，原始px值 越大。当然，rem基准值 的计算是通过 设备分辨率宽度 得到的，不同设备其 rem基准值 不同，也就导致 原始px值 不同，这也是自适应布局的本质原理。
 
 ## 使用
 
 OK，现在就是根据设计稿来写样式了。  
 但问题来了，难道我每次都要手动 `原始的px值/rem基准值` 计算得到 rem？  
-当然不是，我们可以通过安装 [CSSREM](https://github.com/flashlizi/cssrem) 插件来使 px -> rem。  
+当然不是，我们可以通过安装 [CSSREM](https://github.com/flashlizi/cssrem) 插件来使 px -> rem（通常我们的设计稿是 750px，那么其 rem基准值 应设为 75px）。  
 或者利用 SCSS 的混合器或 postcss 来进行换算。  
 
 最后，对于字体来说，我们希望它不进行自动适配。  
