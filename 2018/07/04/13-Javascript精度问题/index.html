@@ -77,8 +77,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/13.jpg">
 <meta property="og:image" content="/images/原码反码补码.png">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/7/10/1a6645d765dc89487b43dd35514273c9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2018-08-06T08:00:44.339Z">
+<meta property="og:image" content="/images/浮点数公式.jpg">
+<meta property="og:updated_time" content="2019-06-27T13:49:09.645Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="13-Javascript精度问题">
 <meta name="twitter:image" content="/images/index/13.jpg">
@@ -317,7 +317,7 @@
 <li>反码：反码即除了符号位外，反转了剩余所有原码的位。<code>1001</code> 的反码是 <code>1110</code>，此时 <code>0001 + 1110 = 1111</code>，而 <code>1111</code> 表示 -0 (<code>0000</code> 表示 +0)，所以结果是正确的。所以说反码解决了负数的二进制表示问题。</li>
 <li>补码：从上一点我们知道了 0 有两个，即 +0 和 -0，按常识来说我们希望只有一个 0，此时我们给负数的所有反码 +1，如图：<br> <img src="/images/原码反码补码.png" alt="image"><br> 这样我们就解决了 0 的问题，同时也解决了”正负数相加不等于0”的问题</li>
 </ol>
-<h1 id="浮点数表示方法"><a href="#浮点数表示方法" class="headerlink" title="浮点数表示方法"></a>浮点数表示方法</h1><p>从 IEEE 754 规范中我们可以得到二进制浮点数的公式：<br><img src="https://user-gold-cdn.xitu.io/2017/7/10/1a6645d765dc89487b43dd35514273c9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image"><br>公式以科学记数法的形式来表示，其中字母的含义和上一节相对应。  </p>
+<h1 id="浮点数表示方法"><a href="#浮点数表示方法" class="headerlink" title="浮点数表示方法"></a>浮点数表示方法</h1><p>从 IEEE 754 规范中我们可以得到二进制浮点数的公式：<br><img src="/images/浮点数公式.jpg" alt="image"><br>公式以科学记数法的形式来表示，其中字母的含义和上一节相对应。  </p>
 <ol>
 <li>S 为符号位，<code>S = 0</code> 时，V为正；<code>S = 1</code> 时，V为负</li>
 <li>E 为指数位</li>
