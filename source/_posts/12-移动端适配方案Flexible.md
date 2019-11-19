@@ -126,7 +126,7 @@ PS：iphone6（dpr=2, 414x763）的设备下，1rem 是多少 px 呢？
 
 OK，现在就是根据设计稿来获取 `rem值` 了。
 但问题来了，难道我每次都要手动 `设计稿px值 / rem基准值` 计算得到 `rem值`？
-当然不是，我们可以通过安装 [CSSREM](https://github.com/flashlizi/cssrem) 插件来使 px -> rem（通常我们的设计稿是 750px，那么其 rem基准值 应设为 75px）。
+当然不是，我们可以通过安装 [CSSREM](https://github.com/flashlizi/cssrem) 插件来使 px -> rem（通常我们的设计稿是 750px，那么其 rem基准值 应设为 75px；同理 375px 的设计稿下，rem基准值 应设为 37.5px）。
 或者利用 SCSS 的混合器或 postcss 来进行换算。
 
 最后，对于字体来说，我们希望它不进行自动适配。
