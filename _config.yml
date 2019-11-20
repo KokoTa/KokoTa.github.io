@@ -4,7 +4,7 @@
 
 # Site
 title: KokoTaの蜡像屋
-subtitle: 
+subtitle:
 description: 随性地记述，懒散地放空
 author: KokoTa
 language: zh-Hans
@@ -42,19 +42,19 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
-  path: ''
+  path: ""
   per_page: 10
   order_by: -date
 
 tag_generator:
-    per_page: 10
-  
+  per_page: 10
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -81,5 +81,5 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:KokoTa/KokoTa.github.io.git
+  repo: https://github.com/KokoTa/KokoTa.github.io.git
   branch: master
