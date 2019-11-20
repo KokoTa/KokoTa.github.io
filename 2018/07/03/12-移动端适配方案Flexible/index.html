@@ -76,7 +76,7 @@
 <meta property="og:site_name" content="KokoTaの蜡像屋">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/index/12.jpg">
-<meta property="og:updated_time" content="2019-09-17T07:15:26.879Z">
+<meta property="og:updated_time" content="2019-10-08T02:30:14.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="12-移动端适配方案Flexible">
 <meta name="twitter:image" content="/images/index/12.jpg">
@@ -330,7 +330,7 @@
 <p>使得 html 元素的 font-size 对应 <code>font-size = 1rem = 75px</code>，<br>这样一来，对于元素尺寸，只需要遵循 <code>rem值 * rem基准值 = 设计稿px值</code> 的公式即可。</p>
 <p>Flexible 会自动计算不同设备的 <code>rem基准值</code>，让后将这个基准值设置到 html 的 font-size 上。<br><code>rem值不变</code> -&gt; <code>rem基准值动态变化</code> -&gt; <code>px值动态变化</code>，这样我们就只要适配一个设计稿就可以完成自适应了。</p>
 <p>PS：iphone6（dpr=2, 414x763）的设备下，1rem 是多少 px 呢？<br>通过公式可以知道，<code>414 x 2 / 10 = 82.8</code>，即 <code>font-size = 1rem = 82.8px</code>。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>OK，现在就是根据设计稿来获取 <code>rem值</code> 了。<br>但问题来了，难道我每次都要手动 <code>设计稿px值 / rem基准值</code> 计算得到 <code>rem值</code>？<br>当然不是，我们可以通过安装 <a href="https://github.com/flashlizi/cssrem" target="_blank" rel="external">CSSREM</a> 插件来使 px -&gt; rem（通常我们的设计稿是 750px，那么其 rem基准值 应设为 75px）。<br>或者利用 SCSS 的混合器或 postcss 来进行换算。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>OK，现在就是根据设计稿来获取 <code>rem值</code> 了。<br>但问题来了，难道我每次都要手动 <code>设计稿px值 / rem基准值</code> 计算得到 <code>rem值</code>？<br>当然不是，我们可以通过安装 <a href="https://github.com/flashlizi/cssrem" target="_blank" rel="external">CSSREM</a> 插件来使 px -&gt; rem（通常我们的设计稿是 750px，那么其 rem基准值 应设为 75px；同理 375px 的设计稿下，rem基准值 应设为 37.5px）。<br>或者利用 SCSS 的混合器或 postcss 来进行换算。</p>
 <p>最后，对于字体来说，我们希望它不进行自动适配。<br>但由于该方案进行了视图缩放，使 dpr = 1 时，字号16px；dpr = 2 时，字号8px(视图缩放了 0.5 倍)。<br>所以这里 <strong>data-dpr</strong> 的作用就体现出来了，我们写CSS时，通过判断这个属性值来决定是否放大字体。<br>dpr = 1 时，字号16px；dpr = 2 时，字号16px * 2。<br>这样就能保证不同 dpr 下，字体显示的大小保持一致。</p>
 <p>我们可以使用 SCSS 混合器来进行换算：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">mixin</span> font-dpr($font-size)&#123;</div><div class="line">  font-size: $font-size;</div><div class="line">  <span class="selector-attr">[data-dpr="2"]</span> &amp; &#123;</div><div class="line">    <span class="attribute">font-size</span>: $font-size * <span class="number">2</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="selector-attr">[data-dpr="3"]</span> &amp; &#123;</div><div class="line">    <span class="attribute">font-size</span>: $font-size * <span class="number">3</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -457,7 +457,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

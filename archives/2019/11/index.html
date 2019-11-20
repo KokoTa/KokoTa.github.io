@@ -53,7 +53,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="设计模式," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -69,21 +69,16 @@
 
 
 
-<meta name="keywords" content="设计模式">
-<meta property="og:type" content="article">
-<meta property="og:title" content="19-MVVM">
-<meta property="og:url" content="/2019/03/10/19-MVVM/index.html">
+<meta name="description" content="随性地记述，懒散地放空">
+<meta property="og:type" content="website">
+<meta property="og:title" content="KokoTaの蜡像屋">
+<meta property="og:url" content="/archives/2019/11/index.html">
 <meta property="og:site_name" content="KokoTaの蜡像屋">
+<meta property="og:description" content="随性地记述，懒散地放空">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="/images/index/19.png">
-<meta property="og:image" content="/images/mvc.png">
-<meta property="og:image" content="/images/mvvm.png">
-<meta property="og:image" content="/images/vue双向数据绑定.png">
-<meta property="og:image" content="/images/双向绑定设计模式.png">
-<meta property="og:updated_time" content="2019-03-11T14:01:49.219Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="19-MVVM">
-<meta name="twitter:image" content="/images/index/19.png">
+<meta name="twitter:title" content="KokoTaの蜡像屋">
+<meta name="twitter:description" content="随性地记述，懒散地放空">
 
 
 
@@ -113,13 +108,13 @@
 
 
 
-  <link rel="canonical" href="/2019/03/10/19-MVVM/"/>
+  <link rel="canonical" href="/archives/2019/11/"/>
 
 
 
 
 
-  <title>19-MVVM | KokoTaの蜡像屋</title>
+  <title>归档 | KokoTaの蜡像屋</title>
   
 
 
@@ -138,7 +133,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-archive">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -222,164 +217,74 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block archive">
+    <div id="posts" class="posts-collapse">
+      <span class="archive-move-on"></span>
 
-  
+      <span class="archive-page-counter">
+        
+        
+        
+          
+        
+        嗯..! 目前共计 22 篇日志。 继续努力。
+      </span>
 
-  
-  
-  
+      
+
+        
+        
+        
+
+        
+          
+          <div class="collection-title">
+            <h1 class="archive-year" id="archive-year-2019">2019</h1>
+          </div>
+        
+        
+
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="/2019/03/10/19-MVVM/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KokoTa">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KokoTaの蜡像屋">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">19-MVVM</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+            <a class="post-title-link" href="/2019/11/19/22-frp内网穿透/" itemprop="url">
               
-                <span class="post-meta-item-text">发表于</span>
+                <span itemprop="name">22-frp内网穿透.md</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T15:02:32+08:00">
-                2019-03-10
-              </time>
-            
+            </a>
+        
+      </h2>
 
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2019-11-19T17:45:45+08:00"
+              content="2019-11-19" >
+          11-19
+        </time>
+      </div>
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p><img src="/images/index/19.png"><br><a id="more"></a></p>
-<h1 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h1><h2 id="传统的-MVC-模式"><a href="#传统的-MVC-模式" class="headerlink" title="传统的 MVC 模式"></a>传统的 MVC 模式</h2><p>Model（模型）表示应用程序核心（比如数据库记录列表）<br>View（视图）显示数据（数据库记录）<br>Controller（控制器）处理输入（写入数据库记录）</p>
-<p><img src="/images/mvc.png" alt="mvc"></p>
-<h2 id="MVVM-模式"><a href="#MVVM-模式" class="headerlink" title="MVVM 模式"></a>MVVM 模式</h2><p>传统 MVC 模式中的 View 依赖 Model，简而言之就是前端中我们获取后端数据(model)后需要操作DOM更新视图(view)，久而久之代码就会变臃肿</p>
-<p>MVVM 模式是 MVC 模式的改进版，它切断了 Model 改变 View 这条线，将 Control 换成了 ViewModel，简而言之就是前端中我们使用的 Vue 框架的双向数据绑定，视图(view)改变会改变前端数据(view model)，同时也会改变后端数据(model)，反之亦然，精简了大量冗余代码，提高了开发效率</p>
-<p><img src="/images/mvvm.png" alt="mvvm"></p>
-<h2 id="Vue-双向数据绑定"><a href="#Vue-双向数据绑定" class="headerlink" title="Vue 双向数据绑定"></a>Vue 双向数据绑定</h2><p>View 和 ViewModel 的通信是双向数据通信，在前端框架中，就是双向数据绑定</p>
-<p><img src="/images/vue双向数据绑定.png" alt="vue双向数据绑定"></p>
-<p>上图简要说明了双向数据绑定的方法</p>
-<p><img src="/images/双向绑定设计模式.png" alt="双向绑定设计模式"></p>
-<p>上图简要说明了双向数据绑定的设计模式(发布/订阅模式)：</p>
-<p>Observer 就是 Object.definedProperty，用来监听数据变化<br>Dep 就是放置订阅者的列表<br>Watcher 就是订阅者<br>View 就是视图</p>
-<p>当我们声明数据时，会生成一个 Watcher 放到 Dep 中，即完成订阅<br>当我们改变数据时，Observer 会监听到然后通知 Dep 中的所有 Watcher 执行 update 回调函数更新视图</p>
-<h2 id="Vue-框架解析"><a href="#Vue-框架解析" class="headerlink" title="Vue 框架解析"></a>Vue 框架解析</h2><p><a href="https://github.com/KokoTa/All-demo/tree/master/other/MVVM" target="_blank" rel="external">地址</a></p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/10/22/18-缓存详解/" rel="next" title="18-缓存详解">
-                <i class="fa fa-chevron-left"></i> 18-缓存详解
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/29/20-混合开发/" rel="prev" title="20-混合开发">
-                20-混合开发 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
       
+
     </div>
   </div>
+  
+  
+  
+
+  
+
 
 
           </div>
@@ -387,10 +292,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -411,17 +312,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -489,22 +381,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MVVM"><span class="nav-number">1.</span> <span class="nav-text">MVVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统的-MVC-模式"><span class="nav-number">1.1.</span> <span class="nav-text">传统的 MVC 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM-模式"><span class="nav-number">1.2.</span> <span class="nav-text">MVVM 模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-双向数据绑定"><span class="nav-number">1.3.</span> <span class="nav-text">Vue 双向数据绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-框架解析"><span class="nav-number">1.4.</span> <span class="nav-text">Vue 框架解析</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
