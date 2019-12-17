@@ -149,6 +149,11 @@ dpr = 1 时，字号16px；dpr = 2 时，字号16px * 2。
 }
 ```
 
+生产环境推荐使用以下两个工具来完成移动端适配：
+`postcss-pxtorem` 是一款 postcss 插件，用于将单位转化为 rem
+`lib-flexible` 用于设置 rem 基准值
+
+
 # 参考
 
 [移动端布局概念](https://juejin.im/post/5b39905351882574c72f2808#heading-21)
